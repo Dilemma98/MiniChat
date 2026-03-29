@@ -3,60 +3,68 @@ import { useState } from "react";
 import "../../assets/styles/authModal.css";
 
 export default function AuthModal({ modalType, onClose, onLogin }: ModalProps) {
-    const [fname, setFname] = useState("");
-    const [lname, setLname] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [user, setUser] = useState(false);
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+//   const [user, setUser] = useState(false);
 
-    async function handleLogin() {
+  async function handleLogin() {
     try {
-    const body = {
+      const body = {
         email,
-        password
-      }
+        password,
+      };
       const response = await fetch("http://localhost:3000/api/login", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
       });
       const res = await response.json();
-      console.log("response", res);
-      onLogin(res.user);
+      console.log("response", res.token);
+      localStorage.setItem("token", res.token);
+      if (res.user) {
+        localStorage.setItem("user", JSON.stringify(res.user));
+        onLogin(res.user);
+      }
       onClose();
     } catch {}
   }
 
   async function handleRegister() {
-    try{
-        const body = {
+    try {
+      const body = {
         fname,
         lname,
         email,
-        password
+        password,
       };
-       const response = await fetch("http://localhost:3000/api/register", {
+      const response = await fetch("http://localhost:3000/api/register", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
       });
       const res = await response.json();
       console.log("response", res);
-      onLogin(res.user);
+      localStorage.setItem("token", res);
+      if (res.user) {
+        localStorage.setItem("user", JSON.stringify(res.user));
+        onLogin(res.user);
+      }
       onClose();
-    } catch{
-
-    }
+    } catch {}
   }
-   return (
+  return (
     <>
       <div className="modal-overlay" onClick={onClose}>
         <div className="modal-box" onClick={(e) => e.stopPropagation()}>
-          <button className="modal-close" onClick={onClose}>✕</button>
+          <button className="modal-close" onClick={onClose}>
+            ✕
+          </button>
 
           {modalType === "login" ? (
             <>

@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { registerController, loginController } from "../controllers/authController.js";
+import { getAllUsersController } from "../controllers/userController.js";
 
 export const router = Router();
 
@@ -26,3 +27,5 @@ router.get("/settings", (req, res) => {
 router.post("/register", registerController);
 
 router.post("/login", loginController);
+
+router.get("/allUsers", getAllUsersController);
