@@ -6,12 +6,20 @@ import AuthModal from "../components/auth/authModal";
 export default function StartPage() {
   const [ user, setUser ] = useState(null);
   const [modalType, setModalType] = useState<"login" | "register" | null>(null);
-  useEffect(() => {});
+  
+  useEffect(() => {
+    const savedUser = localStorage.getItem("user");
+    if(savedUser){
+      setUser(JSON.parse(savedUser));
+    }
+  },[]);
+
   return (
     <div>
         <Header 
         user={user}
         onOpenModal={(type) => setModalType(type)}
+        onLogout={() => setUser(null)}
         />
         { user && (
           <SignedIn user={user}/>

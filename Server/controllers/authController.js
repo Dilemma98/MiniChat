@@ -9,7 +9,7 @@ export const registerController = async (req, res) => {
     await supabase
       .from("users")
       .insert({ fname, lname, email, password: hashedPassword });
-    res.status(201).json({ message: "Användare skapad" });
+    res.status(201).json({ message: "Användare skapad"})
   } catch {
     res.status(500).json({ message: "Konto kunde inte skapas" });
   }
@@ -25,7 +25,7 @@ export const loginController = async (req, res) => {
       .eq("email", email)
       .single();
 
-    // Check in user exists
+    // Check if user exists
     if (!data) {
       return res.status(404).json({ message: "Användaren hittades inte" });
     }
@@ -44,7 +44,7 @@ export const loginController = async (req, res) => {
         process.env.JWT_SECRET,
         {expiresIn: "7d"}
     )
-    res.status(200).json({ message: "Inloggad!", token, user: { name: data.fname } })
+    res.status(200).json({ message: "Inloggad!", token, user: { name: data.fname , id: data.id} })
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Något gick fel" });
