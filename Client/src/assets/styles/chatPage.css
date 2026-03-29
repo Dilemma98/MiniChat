@@ -1,0 +1,125 @@
+.chatPage {
+  display: flex;
+  justify-content: flex-start;
+  padding: 24px 32px;
+  /* background-color: #faf7f7; */
+  min-height: 70vh;
+  max-height: 90vh;
+  min-width: 80%;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.chatBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 80%;
+  height: 80;
+  margin: 0 auto;
+}
+
+.messageRow {
+  display: flex;
+  flex-direction: column;
+  max-width: 65%;
+}
+
+.messageRow.own {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.messageRow.other {
+  align-self: flex-start;
+  align-items: flex-start;
+}
+
+.userId {
+  font-size: 11px;
+  color: #b0929a;
+  margin-bottom: 3px;
+  padding-left: 4px;
+  font-family: sans-serif;
+}
+
+.bubble {
+  padding: 10px 16px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.5;
+  font-family: sans-serif;
+}
+
+.messageRow.own .bubble {
+  background-color: #e8b4c0;
+  color: #3a1f26;
+  border-bottom-right-radius: 4px;
+}
+
+.messageRow.other .bubble {
+  background-color: #ede8e8;
+  color: #2e2020;
+  border-bottom-left-radius: 4px;
+}
+.inputWrapper {
+  width: 100%;           /* ← ta upp full bredd */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;  /* ← centrera innehållet inuti */
+  gap: 1em;
+  padding: 16px 0;
+  margin-bottom: 2em;
+}
+
+.textArea{
+    padding: 0.5em;
+    border: 0.01em solid grey;
+    width: 300px;
+}
+
+.sendBtn{
+    height: 2em;
+}
+
+.chatMenu{
+  width: 15em;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 16px;
+
+  /* background: rgba(255, 255, 255, 0.6); */
+  backdrop-filter: blur(12px);
+
+  border-left: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.chatMenu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.chatMenu li {
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+
+  letter-spacing: 0.08em;
+  font-size: 0.9em;
+  color: #333;
+
+  font-family: 'Gloock', sans-serif;
+  transition: all 0.2s ease;
+}
+.chatMenu li:hover {
+  background: rgba(0, 0, 0, 0.05);
+  transform: translateX(4px);
+}
