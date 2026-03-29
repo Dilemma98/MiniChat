@@ -1,7 +1,10 @@
 import FetchChat from "../components/chat/fetchChat";
 import WriteMessage from "../components/chat/sendMessage";
+import type { ChatPageProps } from "../props/chatProp";
 
-export default function ChatPage() {
+export default function ChatPage({selectedUser}: ChatPageProps) {
+  const currentUser = JSON.parse(localStorage.getItem("user") || "{}");
+
   return (
     <div
       style={{
@@ -14,9 +17,13 @@ export default function ChatPage() {
       }}
     >
       <div style={{ display: "flex", flexDirection: "row", height: "80vh"}}>
-        <FetchChat />
+       {selectedUser && (
+         <FetchChat receiverId={selectedUser} senderId={currentUser} />
+       )}
       </div>
-        <WriteMessage />
+       {selectedUser && (
+         <WriteMessage />
+       )}
     </div>
   );
 }

@@ -8,6 +8,7 @@ import ChatMenu from "../components/chat/chatMenu";
 
 export default function SignedIn({ user }: SignedInProp) {
   const [navTab, setNavTab] = useState("");
+  const [selectedUser, setSelectedUser] = useState(null);
   return (
     <div>
       {user ? (
@@ -15,8 +16,8 @@ export default function SignedIn({ user }: SignedInProp) {
           <Menu user={user} onNavigate={setNavTab} />
           {navTab === "Chattar" && (
             <>
-            <ChatPage />
-            <ChatMenu />
+            <ChatPage selectedUser={selectedUser}/>
+            <ChatMenu onSelectUser={setSelectedUser} />
             </>
           )}
           {navTab === "Vänner" && (

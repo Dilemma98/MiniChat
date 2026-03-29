@@ -47,13 +47,17 @@
      position: absolute;
      top: 1rem;
      right: 1.2rem;
-     background: none;
+     background-color: rgba(255, 0, 0, 0.626);
+     padding: 0.2em;
+     border-radius: 0.5em;
      border: none;
-     font-size: 1.3rem;
+     font-size: 1rem;
      cursor: pointer;
-     color: #999;
+     color: #ffffff;
      line-height: 1;
      transition: color 0.2s;
+     width: 1.8em;
+     height: 1.8em;
  }
 
  .modal-close:hover {
@@ -65,6 +69,7 @@
      font-weight: 700;
      margin-bottom: 1.5rem;
      color: #1a1a1a;
+     text-align: center;
  }
 
  .modal-input {
@@ -88,7 +93,7 @@
  .modal-submit {
      width: 100%;
      padding: 0.85rem;
-     background: #1a1a1a;
+     background: #b06c96;
      color: #fff;
      border: none;
      border-radius: 10px;

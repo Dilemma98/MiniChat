@@ -1,11 +1,18 @@
 import type { ShowChatProps } from "../../props/chatProp";
 import "../../assets/styles/chatPage.css";
 
-export default function ShowChat({ messages, currentUserId }: ShowChatProps) {
+export default function ShowChat({ messages, chosenUserId, currentUserId }: ShowChatProps) {
   return (
     <div className="chatPage">
       <div className="chatBox">
-        {messages.map((msg, index) => {
+        {messages.length === 0 ? (
+          chosenUserId && (
+            <div className="messageRow">
+            <p className="startConvo">Starta en konversation med {chosenUserId.fname}!</p>
+          </div>
+          )
+        ):(
+          messages.map((msg, index) => {
           const isOwn = msg.userId === currentUserId;
           const userName = msg.userName;
           return (
@@ -17,7 +24,8 @@ export default function ShowChat({ messages, currentUserId }: ShowChatProps) {
               <div className="bubble">{msg.message}</div>
             </div>
           );
-        })}
+        })
+        )}
       </div>
     </div>
   );
