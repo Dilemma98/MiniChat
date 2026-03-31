@@ -1,3 +1,10 @@
 import { io } from "socket.io-client";
 
-export const socket = io("http://localhost:3000");
+  const currentUser = JSON.parse(localStorage.getItem("user") || "{}");
+
+export const socket = io("http://localhost:3000", {
+    auth: {
+        userId: currentUser.id,
+    },
+    autoConnect: false,
+});

@@ -17,15 +17,20 @@ const io = new Server(server, {
 
 // When somone connects: get a unique socket
 io.on("connection", (socket) => {
+
+  // Join the room with the signedin users id.
+  socket.join(socket.handshake.auth.userId);
   console.log("user connected");
+  console.log("SocketHandshake", socket.handshake.auth);
 
   // When THAT unique socket sends something
   socket.on("send_message", (data) => {
     console.log("message:", data);
 
-    // Send to everyone
-    io.emit("receive_message", data);
+    // Send to specific user
+    socket.to(data.receiverId).emit("receive_message", data);
   });
+  
 });
 
 app.use(cors());

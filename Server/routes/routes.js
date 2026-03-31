@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { registerController, loginController } from "../controllers/authController.js";
 import { getAllUsersController } from "../controllers/userController.js";
-import { getConvoByIdController } from "../controllers/chatController.js";
+import { getConvoByIdController, sendMessageController } from "../controllers/chatController.js";
 
 export const router = Router();
 
@@ -32,3 +32,5 @@ router.post("/login", loginController);
 router.get("/allUsers", getAllUsersController);
 
 router.get("/getConvoById/:senderId/:receiverId", getConvoByIdController);
+
+router.post("/sendMessage/:senderId/:receiverId", sendMessageController);

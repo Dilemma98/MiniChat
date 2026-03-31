@@ -1,5 +1,6 @@
 export type Message= {
-	userId : number,
-	message: string,
-    userName: string;
+	senderId: number;
+	receiverId: number;
+	message: string;
+	userName: string;
 }
