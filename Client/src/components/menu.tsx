@@ -1,10 +1,10 @@
-import "../../assets/styles/menu.css";
-import type { SignedInProp } from "../../props/signedInProp";
+import "../assets/styles/menu.css";
+import type { SignedInProp } from "../props/signedInProp";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import GroupIcon from "@mui/icons-material/Group";
 import SettingsIcon from "@mui/icons-material/Settings";
-import MarkChatUnreadIcon from "@mui/icons-material/MarkChatUnread";
+// import MarkChatUnreadIcon from "@mui/icons-material/MarkChatUnread";
 
 export default function Menu({ user, onNavigate }: SignedInProp) {
   return (

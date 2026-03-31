@@ -1,6 +1,6 @@
 import type { SignedInProp } from "../props/signedInProp";
 import { useState, useEffect } from "react";
-import Menu from "../components/signedIn/menu";
+import Menu from "../components/menu";
 import ChatPage from "./chatPage";
 import FriendsPage from "./friendsPage";
 import SettingsPage from "./settingsPage";
