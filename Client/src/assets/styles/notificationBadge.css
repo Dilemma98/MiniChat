@@ -1,0 +1,26 @@
+.notificationBadge {
+  position: fixed;
+  top: 2em;
+  right: 2em;
+  z-index: 1000;
+  width: 10em; /* Rektangelns bredd */
+  height: 35px; /* Rektangelns höjd */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px; /* Lagom textstorlek */
+  font-weight: bold;
+  border-radius: 6px; /* Lätt rundade hörn för en modern känsla */
+  background: rgba(0, 0, 0, 0.1); /* Lätt genomskinlig bakgrund */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Lätt skugga för djup */
+  transition: transform 0.3s ease, background 0.3s ease; /* Smidig övergång */
+}
+
+.notificationBadge:hover {
+  background: rgba(0, 0, 0, 0.2); /* Mer genomskinlig vid hover */
+}
+
+.notificationBadge:active {
+  transform: scale(1); /* Tillbaka till normal storlek vid klick */
+  background: rgba(0, 0, 0, 0.3); /* Mörkare vid klick */
+}
