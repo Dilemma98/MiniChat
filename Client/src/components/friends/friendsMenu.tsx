@@ -17,6 +17,7 @@ export default function FetchMenu() {
       const res = await response.text();
       console.log("response", res);
       setFetchedData(res);
+      console.log("Fetched data", fetchedData);
     } catch {}
   }
 
