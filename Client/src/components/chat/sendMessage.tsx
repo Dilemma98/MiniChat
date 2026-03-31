@@ -22,6 +22,7 @@ export default function WriteMessage({ senderUserId, receiverUserId, setFetchedM
       receiverId: receiverUserId,
       message: message,
       userName: JSON.parse(localStorage.getItem("user") || "{}").fname,
+      createdAt: new Date().toISOString(),
     }]);
    }
     setMessage("");
