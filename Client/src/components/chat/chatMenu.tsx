@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 import "../../assets/styles/chatPage.css";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import type { ChatMenuProps } from "../../props/chatProp";
+import { LIVE_URL, 
+  // LOCAL_URL 
+} from "../../url";
 
 export default function ChatMenu({onSelectUser}: ChatMenuProps) {
   const [users, setUsers] = useState([]);
   const currentUser = JSON.parse(localStorage.getItem("user") || "{}");
   async function fetchAllUsers() {
     try {
-      const response = await fetch("http://localhost:3000/api/allUsers", {
+      const response = await fetch(`${LIVE_URL}/api/allUsers`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

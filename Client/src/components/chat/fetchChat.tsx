@@ -4,6 +4,10 @@ import ShowChat from "./showChat";
 // import type { Message } from "../../types/chat";
 // import { socket } from "../../services/websocket";
 import type { FetchChatProps } from "../../props/chatProp";
+import {
+  LIVE_URL, 
+  // LOCAL_URL
+} from "../../url";
 
 export default function FetchChat({
   senderId,
@@ -18,7 +22,7 @@ export default function FetchChat({
     console.log("receiver", receiverId);
     try {
       const response = await fetch(
-        `http://localhost:3000/api/getConvoById/${senderId.id}/${receiverId.id}`,
+        `${LIVE_URL}/api/getConvoById/${senderId.id}/${receiverId.id}`,
         {
           method: "GET",
           headers: {

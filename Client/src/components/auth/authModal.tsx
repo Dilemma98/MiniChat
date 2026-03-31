@@ -1,6 +1,9 @@
 import type { ModalProps } from "../../props/modalProps";
 import { useState } from "react";
 import "../../assets/styles/authModal.css";
+import { LIVE_URL, 
+  // LOCAL_URL
+} from "../../url";
 
 export default function AuthModal({ modalType, onClose, onLogin }: ModalProps) {
   const [fname, setFname] = useState("");
@@ -15,7 +18,7 @@ export default function AuthModal({ modalType, onClose, onLogin }: ModalProps) {
         email,
         password,
       };
-      const response = await fetch("http://localhost:3000/api/login", {
+      const response = await fetch(`${LIVE_URL}/api/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -41,7 +44,7 @@ export default function AuthModal({ modalType, onClose, onLogin }: ModalProps) {
         email,
         password,
       };
-      const response = await fetch("http://localhost:3000/api/register", {
+      const response = await fetch(`${LIVE_URL}/api/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

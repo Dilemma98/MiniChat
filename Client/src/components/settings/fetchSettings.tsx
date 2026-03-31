@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import "../../assets/styles/chosenpage.css";
+import { LIVE_URL, 
+  // LOCAL_URL
+} from "../../url";
 
 
 export default function FetchSettings() {
@@ -7,7 +10,7 @@ export default function FetchSettings() {
 
   async function FetchSettingsData() {
     try {
-      const response = await fetch("http://localhost:3000/api/settings");
+      const response = await fetch(`${LIVE_URL}/api/settings`);
       const res = await response.text();
       console.log("response", res);
       setFetchedData(res);
