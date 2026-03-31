@@ -1,7 +1,8 @@
 import type { ShowChatProps } from "../../props/chatProp";
 import "../../assets/styles/chatPage.css";
 import { socket } from "../../services/websocket";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { useLayoutEffect } from "react";
 
 export default function ShowChat({
   messages,
@@ -9,10 +10,12 @@ export default function ShowChat({
   chosenUserId,
   currentUserId,
 }: ShowChatProps) {
+  const bottomRef = useRef<HTMLDivElement | null>(null);
+  const chatBoxRef = useRef<HTMLDivElement | null>(null);
   const handleReceiveMessage = (data: any) => {
     console.log("Received message:", data);
 
-    if(data.senderId === currentUserId.id) return;
+    if (data.senderId === currentUserId.id) return;
     if (setFetchedMessages) {
       setFetchedMessages((prevMessages) => [...prevMessages, data]);
     }
@@ -26,6 +29,15 @@ export default function ShowChat({
       socket.off("receive_message", handleReceiveMessage);
     };
   }, []);
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+useLayoutEffect(() => {
+  if (chatBoxRef.current) {
+    chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+  }
+}, [messages]);
   return (
     <div className="chatPage">
       <div className="chatBox">
@@ -50,6 +62,7 @@ export default function ShowChat({
                 </div>
               );
             })}
+        <div ref={bottomRef} />
       </div>
     </div>
   );
