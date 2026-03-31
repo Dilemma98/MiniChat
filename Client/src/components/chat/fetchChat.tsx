@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "../../assets/styles/chosenpage.css";
 import ShowChat from "./showChat";
-import type { Message } from "../../types/chat";
-import { socket } from "../../services/websocket";
+// import type { Message } from "../../types/chat";
+// import { socket } from "../../services/websocket";
 import type { FetchChatProps } from "../../props/chatProp";
 
 export default function FetchChat({
