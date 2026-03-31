@@ -12,7 +12,7 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: "https://mini-chat-ruby.vercel.app",
     methods: ["GET", "POST"],
   },
 });
