@@ -40,6 +40,7 @@ export default function FetchChat({
             receiverId: msg.receiver_id,
             message: msg.message,
             userName: msg.user_name,
+            createdAt: msg.created_at,
           })) || [],
         );
       }

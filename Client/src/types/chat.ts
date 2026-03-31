@@ -3,4 +3,5 @@ export type Message= {
 	receiverId: number;
 	message: string;
 	userName: string;
+	createdAt: string;
 }

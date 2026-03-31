@@ -9,6 +9,7 @@ export default function ShowChat({
   setFetchedMessages,
   chosenUserId,
   currentUserId,
+  createdAt,
 }: ShowChatProps) {
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const chatBoxRef = useRef<HTMLDivElement | null>(null);
@@ -33,11 +34,11 @@ export default function ShowChat({
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-useLayoutEffect(() => {
-  if (chatBoxRef.current) {
-    chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
-  }
-}, [messages]);
+  useLayoutEffect(() => {
+    if (chatBoxRef.current) {
+      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+    }
+  }, [messages]);
   return (
     <div className="chatPage">
       <div className="chatBox">
@@ -52,6 +53,7 @@ useLayoutEffect(() => {
           : messages.map((msg, index) => {
               const isOwn = msg.senderId === currentUserId.id;
               const userName = msg.userName;
+              console.log("MESSAGE", msg);
               return (
                 <div
                   key={index}
@@ -59,6 +61,12 @@ useLayoutEffect(() => {
                 >
                   {!isOwn && <span className="userId"> {userName}</span>}
                   <div className="bubble">{msg.message}</div>
+                  <p style={{ fontSize: "0.7em", marginTop: "2px" }}>
+                    {new Date(msg.createdAt).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </p>
                 </div>
               );
             })}
