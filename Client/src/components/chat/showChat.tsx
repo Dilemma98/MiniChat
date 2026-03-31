@@ -11,6 +11,7 @@ export default function ShowChat({
 }: ShowChatProps) {
   const handleReceiveMessage = (data: any) => {
     console.log("Received message:", data);
+
     if(data.senderId === currentUserId.id) return;
     if (setFetchedMessages) {
       setFetchedMessages((prevMessages) => [...prevMessages, data]);

@@ -5,7 +5,12 @@ import type { Message } from "../../types/chat";
 import { socket } from "../../services/websocket";
 import type { FetchChatProps } from "../../props/chatProp";
 
-export default function FetchChat({ senderId, receiverId, fetchedMessages, setFetchedMessages }: FetchChatProps) {
+export default function FetchChat({
+  senderId,
+  receiverId,
+  fetchedMessages,
+  setFetchedMessages,
+}: FetchChatProps) {
   // const [fetchedMessages, setFetchedMessages] = useState<Message[]>([]);
 
   async function fetchChatById() {
@@ -24,6 +29,16 @@ export default function FetchChat({ senderId, receiverId, fetchedMessages, setFe
 
       const res = await response.json();
       console.log("Messages", res);
+      if (setFetchedMessages) {
+        setFetchedMessages(
+          res.conversation.map((msg: any) => ({
+            senderId: msg.sender_id,
+            receiverId: msg.receiver_id,
+            message: msg.message,
+            userName: msg.user_name,
+          })) || [],
+        );
+      }
     } catch {}
   }
 
