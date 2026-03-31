@@ -6,7 +6,6 @@ export type ShowChatProps = {
   currentUserId: any;
   messages: Message[];
   setFetchedMessages?: Dispatch<SetStateAction<Message[]>>;
-  createdAt?: string;
 };
 export type FetchChatProps = {
   senderId: any;

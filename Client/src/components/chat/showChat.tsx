@@ -9,7 +9,6 @@ export default function ShowChat({
   setFetchedMessages,
   chosenUserId,
   currentUserId,
-  createdAt,
 }: ShowChatProps) {
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const chatBoxRef = useRef<HTMLDivElement | null>(null);
