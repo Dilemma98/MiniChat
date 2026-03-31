@@ -107,12 +107,12 @@
 
 /* HOVER */
 .menu li:hover {
-  background: rgba(0, 0, 0, 0.05);
-  transform: translateX(4px);
+  background: #F5E8F1;
+  transform: translateX(8px);
 }
 
 /* ACTIVE STATE (framtidssäkert) */
 .menu li.active {
-  background: rgba(0, 0, 0, 0.08);
-  font-weight: 500;
+  background: #F5E8F1;
+   transform: translateX(8px);
 }

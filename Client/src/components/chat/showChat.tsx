@@ -51,16 +51,18 @@ export default function ShowChat({
             )
           : messages.map((msg, index) => {
               const isOwn = msg.senderId === currentUserId.id;
-              const userName = msg.userName;
-              console.log("MESSAGE", msg);
+              const previousMsg = messages[index - 1];
+              const showName = !previousMsg || previousMsg.senderId !== msg.senderId;
+              // const userName = msg.userName;
+              console.log("MESSAGE FROM USER", msg);
               return (
                 <div
                   key={index}
                   className={`messageRow ${isOwn ? "own" : "other"}`}
                 >
-                  {!isOwn && <span className="userId"> {userName}</span>}
+                  {!isOwn && showName && <p style={{ fontSize: "0.7em", marginBottom: "2px"}}>{msg.userName}</p>}
                   <div className="bubble">{msg.message}</div>
-                  <p style={{ fontSize: "0.7em", marginTop: "2px" }}>
+                  <p style={{ fontSize: "0.7em", marginTop: "1px" }}>
                     {new Date(msg.createdAt).toLocaleTimeString([], {
                       hour: "2-digit",
                       minute: "2-digit",

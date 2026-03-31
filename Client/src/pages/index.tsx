@@ -15,7 +15,7 @@ export default function StartPage() {
   },[]);
 
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", width: "95%", margin: "0 auto", height: "100vh" }}>
         <Header 
         user={user}
         onOpenModal={(type) => setModalType(type)}

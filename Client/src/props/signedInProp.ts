@@ -6,4 +6,5 @@ export type SignedInProp = {
   onNavigate?: (tab: string) => void;
   onOpenModal?: (type: "login" | "register") => void;
   onLogout?: () => void;
+  navTab?: string;
 };

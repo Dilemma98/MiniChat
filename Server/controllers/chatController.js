@@ -5,7 +5,7 @@ export const getConvoByIdController = async (req, res) => {
   try {
     const { data, error } = await supabase
       .from("conversations")
-      .select("*")
+      .select("*, users!sender_id (fname)")
       .or(
         `and(sender_id.eq.${senderId},receiver_id.eq.${receiverId}), and(sender_id.eq.${receiverId},receiver_id.eq.${senderId})`,
       );
@@ -16,7 +16,7 @@ export const getConvoByIdController = async (req, res) => {
   }
 };
 
-export const sendMessageController = async (senderId, receiverId, message, userName) => {
+export const sendMessageController = async (senderId, receiverId, message) => {
   try{
     const { data, error } = await supabase
       .from("conversations")

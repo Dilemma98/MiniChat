@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import "../../assets/styles/chatPage.css";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import PublicIcon from '@mui/icons-material/Public';
 import type { ChatMenuProps } from "../../props/chatProp";
 import { LIVE_URL, 
   // LOCAL_URL 
@@ -30,12 +32,21 @@ export default function ChatMenu({onSelectUser}: ChatMenuProps) {
   }, []);
   return (
     <div className="chatMenu">
-      <h3 className="chatMenuHeader">Minichattare</h3>
+      <div style={{ display: "flex", alignItems: "center", gap: "1em" }}>
+        <h3 className="chatMenuHeader">Minichattare</h3>
+        <span style={{ marginTop: "-1em" }}>
+          <PublicIcon fontSize="medium" />
+        </span>
+      </div>
       <ul>
         {users.map(
           (user: any) =>
             user.id !== currentUser.id && (
               <div className="item">
+                 <div className="avatar">
+              <AccountCircleIcon />
+              <span className="status online"></span>
+            </div>
                 <li key={user.id} onClick={() => {
                   onSelectUser(user)
                   console.log("Selected user", user.id);

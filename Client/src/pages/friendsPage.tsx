@@ -1,4 +1,4 @@
-import FetchFriends from "../components/fetchFriends/fetchFriends";
+import FetchFriends from "../components/friends/friendsMenu";
 
 export default function FriendsPage(){
     return(

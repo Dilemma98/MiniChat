@@ -6,7 +6,7 @@ import GroupIcon from "@mui/icons-material/Group";
 import SettingsIcon from "@mui/icons-material/Settings";
 // import MarkChatUnreadIcon from "@mui/icons-material/MarkChatUnread";
 
-export default function Menu({ user, onNavigate }: SignedInProp) {
+export default function Menu({ user, onNavigate, navTab }: SignedInProp) {
   return (
     <nav className="menu">
       <div className="menu-profile">
@@ -21,15 +21,15 @@ export default function Menu({ user, onNavigate }: SignedInProp) {
       </div>
 
       <ul>
-        <li className="menuItem" onClick={() => onNavigate?.("Chattar")}>
+        <li className={`menuItem ${navTab === "Chattar" ? "active" : ""}`} onClick={() => onNavigate?.("Chattar")}>
           <ChatBubbleIcon fontSize="small" /> Chattar
           {/* If unread messages, show this icon */}
           {/* <MarkChatUnreadIcon fontSize="small" /> */}
         </li>
-        <li className="menuItem" onClick={() => onNavigate?.("Vänner")}>
+        <li className={`menuItem ${navTab === "Vänner" ? "active" : ""}`} onClick={() => onNavigate?.("Vänner")}>
           <GroupIcon fontSize="small" /> Vänner
         </li>
-        <li className="menuItem" onClick={() => onNavigate?.("Inställningar")}>
+        <li className={`menuItem ${navTab === "Inställningar" ? "active" : ""}`} onClick={() => onNavigate?.("Inställningar")}>
           <SettingsIcon fontSize="small" /> Inställningar
         </li>
       </ul>
