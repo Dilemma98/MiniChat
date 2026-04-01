@@ -76,7 +76,7 @@
   line-height: 1.5;
   font-family: sans-serif;
   white-space: pre-line;
-  width: 15em;
+  max-width: 15em;
 }
 
 .messageRow.other .bubble {
