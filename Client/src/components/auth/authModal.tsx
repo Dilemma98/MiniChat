@@ -61,6 +61,12 @@ export default function AuthModal({ modalType, onClose, onLogin }: ModalProps) {
       onClose();
     } catch {}
   }
+
+  async function handleKeyDown(e: React.KeyboardEvent, action: () => void) {
+  if (e.key === "Enter") {
+    action();
+  }
+}
   return (
     <>
       <div className="modal-overlay" onClick={onClose}>
@@ -74,6 +80,7 @@ export default function AuthModal({ modalType, onClose, onLogin }: ModalProps) {
               <h2 className="modal-title">Logga in</h2>
               <input
                 className="modal-input"
+                autoFocus
                 type="text"
                 placeholder="E-post"
                 onChange={(e) => setEmail(e.target.value)}
@@ -83,6 +90,7 @@ export default function AuthModal({ modalType, onClose, onLogin }: ModalProps) {
                 type="password"
                 placeholder="Lösenord"
                 onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={(e) => handleKeyDown(e, handleLogin)}
               />
               <button className="modal-submit" onClick={handleLogin}>
                 Logga in
@@ -95,6 +103,7 @@ export default function AuthModal({ modalType, onClose, onLogin }: ModalProps) {
                 <input
                   className="modal-input"
                   type="text"
+                   autoFocus
                   placeholder="Förnamn"
                   onChange={(e) => setFname(e.target.value)}
                 />
@@ -116,6 +125,7 @@ export default function AuthModal({ modalType, onClose, onLogin }: ModalProps) {
                 type="password"
                 placeholder="Lösenord"
                 onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={(e) => handleKeyDown(e, handleRegister)}
               />
               <button className="modal-submit" onClick={handleRegister}>
                 Skapa konto

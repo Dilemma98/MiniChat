@@ -3,11 +3,12 @@
 .chatPage {
   display: flex;
   justify-content: flex-start;
-  padding: 2em 2em;
+  padding: 1.5em;
   min-height: 70vh;
   max-height: 90vh;
-  width: 100vw;
-  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 /* ============ CHATAREA =============== */
@@ -25,7 +26,7 @@
 .messageRow {
   display: flex;
   flex-direction: column;
-  max-width: 65%;
+  max-width: 75%;
 }
 
 .messageRow.own {
@@ -44,19 +45,22 @@
   font-size: 14px;
   line-height: 1.5;
   font-family: sans-serif;
+  word-break: break-word;
 }
+
 .startConvo {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20em;
+  width: clamp(14em, 60%, 20em);
   background-color: rgba(180, 92, 177, 0.269);
   padding: 1em;
   border-radius: 2em;
   font-family: sans-serif;
   font-size: 0.8em;
-  margin: 50% 0 0 25%;
+  margin: 30% auto 0;
   color: white;
+  text-align: center;
 }
 
 .messageRow.own .bubble {
@@ -68,10 +72,11 @@
 .messageRow .bubble {
   padding: 10px 16px;
   border-radius: 18px;
-  font-size: 14px;
+  font-size: 0.75em;
   line-height: 1.5;
   font-family: sans-serif;
-  white-space: pre-line;  /* Viktigt att hålla denna för att hantera radbrytningar */
+  white-space: pre-line;
+  width: 15em;
 }
 
 .messageRow.other .bubble {
@@ -79,32 +84,39 @@
   color: #2e2020;
   border-bottom-left-radius: 4px;
 }
+
 .inputWrapper {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: 1em;
-  padding: 16px 0;
-  margin-bottom: 2em;
+  gap: 0.75em;
+  padding: 12px 0;
+  margin-bottom: 1em;
+  flex-wrap: wrap;
 }
 
-.textArea{
-    padding: 0.5em;
-    border: 0.01em solid grey;
-    width: 300px;
-    border-radius: 1em;
+.textArea {
+  padding: 0.5em;
+  border: 0.01em solid grey;
+  width: clamp(180px, 50%, 400px);
+  border-radius: 1em;
+  font-size: 14px;
+  resize: none;
+  box-sizing: border-box;
 }
 
-.sendBtn{
-    height: 2em;
-    margin-top: 0.3em;
+.sendBtn {
+  height: 2em;
+  margin-top: 0.3em;
+  flex-shrink: 0;
 }
-/*  ========================== */
 
-/* ========= MENU ========== */
-.chatMenu{
+/* ========= CHAT MENU ========== */
+
+.chatMenu {
   width: 15em;
+  min-width: 12em;
   height: 80vh;
   display: flex;
   flex-direction: column;
@@ -112,13 +124,14 @@
   gap: 0.2em;
   backdrop-filter: blur(12px);
   border-left: 1px solid rgba(0, 0, 0, 0.06);
+  overflow-y: auto;
+  flex-shrink: 0;
 }
 
 .chatMenu ul {
   list-style: none;
   padding: 0;
   margin: 0;
-
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -128,38 +141,99 @@
   padding: 10px 12px;
   border-radius: 8px;
   cursor: pointer;
-
   letter-spacing: 0.08em;
   font-size: 0.9em;
   color: #333;
-
   font-family: 'Gloock', sans-serif;
   transition: all 0.2s ease;
 }
-.item{
+
+.item {
   width: 80%;
   display: flex;
   justify-content: space-between;
   align-content: center;
 }
-.item .icon{
+
+.item .icon {
   margin-top: 0.5em;
   cursor: pointer;
 }
+
 .chatMenu li:hover {
   background: rgba(0, 0, 0, 0.05);
   transform: translateX(4px);
 }
 
-.chatMenuHeader{
+.chatMenuHeader {
   padding: 0;
   margin-top: 0;
   font-family: 'Gloock', sans-serif;
   color: #333;
   letter-spacing: 0.1em;
   font-size: 1.1em;
-  /* text-align: center; */
   border-bottom: 0.01em #000000;
 }
 
-/*  ================================= */
+/* ======= RESPONSIVITET ======= */
+
+@media (max-width: 900px) {
+  .chatMenu {
+    width: 11em;
+    min-width: 9em;
+    padding: 10px;
+  }
+
+  .chatMenu li {
+    font-size: 0.8em;
+    padding: 8px 8px;
+  }
+}
+
+@media (max-width: 650px) {
+  .chatPage {
+    flex-direction: column;
+    padding: 0.75em;
+    max-height: none;
+    min-height: 100dvh;
+  }
+
+  .chatMenu {
+    width: 100%;
+    height: auto;
+    max-height: 35vh;
+    border-left: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    flex-direction: row;
+    flex-wrap: wrap;
+    order: 2;
+  }
+
+  .chatMenu li:hover {
+    transform: translateX(0);
+  }
+
+  .chatBox {
+    height: auto;
+    flex: 1;
+  }
+
+  .messageRow {
+    max-width: 88%;
+  }
+
+  .startConvo {
+    margin: 20% auto 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .bubble {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .textArea {
+    width: 100%;
+  }
+}
