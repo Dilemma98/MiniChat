@@ -1,5 +1,5 @@
 import SendIcon from "@mui/icons-material/Send";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef} from "react";
 import "../../assets/styles/chatPage.css";
 import { socket } from "../../services/websocket";
 import type { SendMessageProps } from "../../props/chatProp";
