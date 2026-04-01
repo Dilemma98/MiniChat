@@ -55,8 +55,8 @@ export default function AuthModal({ modalType, onClose, onLogin }: ModalProps) {
       console.log("response", res);
       localStorage.setItem("token", res);
       if (res.user) {
-        localStorage.setItem("user", JSON.stringify(res));
-        onLogin(res);
+        localStorage.setItem("user", JSON.stringify(res.user));
+        onLogin(res.user);
       }
       onClose();
     } catch {}
