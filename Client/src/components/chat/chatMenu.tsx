@@ -8,7 +8,7 @@ import { LIVE_URL,
   // LOCAL_URL 
 } from "../../url";
 
-export default function ChatMenu({onSelectUser}: ChatMenuProps) {
+export default function ChatMenu({onSelectUser, onlineUsers}: ChatMenuProps) {
   const [users, setUsers] = useState([]);
   const currentUser = JSON.parse(localStorage.getItem("user") || "{}");
   async function fetchAllUsers() {
@@ -39,15 +39,15 @@ export default function ChatMenu({onSelectUser}: ChatMenuProps) {
         </span>
       </div>
       <ul>
-        {users.map(
-          (user: any) =>
-            user.id !== currentUser.id && (
-              <div className="item">
-                 <div className="avatar">
-              <AccountCircleIcon />
-              <span className="status online"></span>
-            </div>
-                <li key={user.id} onClick={() => {
+        {users.map((user: any) => {
+            const isOnline = onlineUsers.includes(user.id);
+            return user.id !== currentUser.id && (
+              <div className="item" key={user.id}>
+                <div className="avatar">
+                  <AccountCircleIcon />
+                  <span className={`status ${isOnline ? "online" : "offline"}`}></span>
+                </div>
+                <li onClick={() => {
                   onSelectUser(user)
                   console.log("Selected user", user.id);
                   }}>
@@ -57,7 +57,8 @@ export default function ChatMenu({onSelectUser}: ChatMenuProps) {
                   <PersonAddIcon fontSize="small" />
                 </div>
               </div>
-            ),
+            );
+          },
         )}
       </ul>
     </div>

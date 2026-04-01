@@ -50,9 +50,11 @@ export default function WriteMessage({
       {showEmojiPicker && (
         <div className="emojiPickerWrapper">
           <EmojiPicker
-            width={300}
+            width={320}
             height={400}
+            previewConfig={{ showPreview: false }}
             onEmojiClick={(e) => {
+              setShowEmojiPicker(false);
               const emoji = e.emoji;
               setMessage((prev) => prev + emoji);
               if (inputRef.current) inputRef.current.textContent += emoji;

@@ -59,8 +59,8 @@ export default function ShowChat({
   }, [chosenUserId]);
 
   useEffect(() => {
-  setIsRead(false);
-}, [chosenUserId]);
+    setIsRead(false);
+  }, [chosenUserId]);
 
   useLayoutEffect(() => {
     if (chatBoxRef.current) {
@@ -83,7 +83,7 @@ export default function ShowChat({
               const previousMsg = messages[index - 1];
               const showName =
                 !previousMsg || previousMsg.senderId !== msg.senderId;
-              const showReadReceipt = !previousMsg || previousMsg.senderId !== msg.senderId;
+              const isLast = index === sortedMessages.length - 1;
               return (
                 <div
                   key={index}
@@ -102,10 +102,8 @@ export default function ShowChat({
                       minute: "2-digit",
                     })}
                   </p>
-                  {isRead && isOwn && (
-                    <p style={{ fontSize: "0.7em", marginTop: "1px" }}>
-                      {showReadReceipt && "Läst"}
-                    </p>
+                  {isRead && isOwn && isLast && (
+                    <p style={{ fontSize: "0.7em", marginTop: "1px" }}>Läst</p>
                   )}
                 </div>
               );

@@ -31,24 +31,6 @@
   width: 40px;
 }
 
-.status {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: 2px solid white;
-}
-
-.status.online {
-  background: #4caf50;
-}
-
-.status.offline {
-  background: #9e9e9e;
-}
-
 .text {
   text-align: left;
   min-width: 0;

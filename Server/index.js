@@ -8,6 +8,7 @@ import { sendMessageController } from "./controllers/chatController.js";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
+const onlineUsers = new Set();
 
 const server = createServer(app);
 const io = new Server(server, {
@@ -20,7 +21,8 @@ const io = new Server(server, {
 // When somone connects: get a unique socket
 io.on("connection", (socket) => {
   // Join the room with the signedin users id.
-  socket.join(socket.handshake.auth.userId);
+  const userId = socket.handshake.auth.userId;
+  socket.join(userId);
   console.log("user connected");
   console.log("SocketHandshake", socket.handshake.auth);
 
@@ -46,7 +48,17 @@ io.on("connection", (socket) => {
 
   socket.on("read", ({senderId, receiverId}) => {
     io.to(receiverId).emit("isRead", { senderId });
-  })
+  });
+
+  if(userId) {
+    onlineUsers.add(userId);
+    io.emit("online_users", Array.from(onlineUsers));
+    console.log("Online users:", Array.from(onlineUsers));
+  }
+  socket.on("disconnect", () => {
+    onlineUsers.delete(userId);
+    io.emit("online_users", Array.from(onlineUsers));
+  });
 });
 
 app.use(cors());

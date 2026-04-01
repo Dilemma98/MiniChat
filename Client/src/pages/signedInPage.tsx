@@ -10,7 +10,8 @@ import {socket} from "../services/websocket";
 export default function SignedIn({ user }: SignedInProp) {
   const [navTab, setNavTab] = useState("");
   const [selectedUser, setSelectedUser] = useState(null);
-
+  const [onlineUsers, setOnlineUsers] = useState<string[]>([]);
+  
   useEffect(() => {
   socket.auth = { userId: user?.id };
   socket.connect();
@@ -19,6 +20,15 @@ export default function SignedIn({ user }: SignedInProp) {
     socket.disconnect();
   };
 }, [user]);
+
+useEffect(() => {
+  socket.on("online_users", (users) => {
+    setOnlineUsers(users);
+  });
+  return () => {
+    socket.off("online_users");
+  }
+},[])
 
   return (
     <div>
@@ -29,7 +39,7 @@ export default function SignedIn({ user }: SignedInProp) {
             <>
             {/* <FriendsMenu /> */}
             <ChatPage selectedUser={selectedUser}/>
-            <ChatMenu onSelectUser={setSelectedUser} />
+            <ChatMenu onSelectUser={setSelectedUser} onlineUsers={onlineUsers} />
             </>
           )}
           {navTab === "Vänner" && (

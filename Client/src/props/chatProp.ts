@@ -16,6 +16,7 @@ export type FetchChatProps = {
 }
 export type ChatMenuProps = {
   onSelectUser: (user: any) => void;
+   onlineUsers: string[];
 };
 export type ChatPageProps = {
   selectedUser: any;

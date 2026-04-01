@@ -1,19 +1,18 @@
 @import url('https://fonts.cdnfonts.com/css/gloock-2');
 
 .menu {
-  width: 20em;
+  width: clamp(16rem, 20vw, 22rem);
   height: 80vh;
   display: flex;
   flex-direction: column;
   padding: 16px;
-  gap: 16px;
+  gap: clamp(8px, 1.5vw, 16px);
   backdrop-filter: blur(12px);
   border-right: 1px solid rgba(0, 0, 0, 0.06);
   transition: width 0.3s ease, transform 0.3s ease;
   overflow-y: auto;
 }
 
-/* PROFIL */
 .menu-profile {
   display: flex;
   align-items: center;
@@ -26,7 +25,6 @@
   transform: translateX(4px);
 }
 
-/* Avatar */
 .avatar {
   position: relative;
   width: 42px;
@@ -41,7 +39,6 @@
   cursor: pointer;
 }
 
-/* Status */
 .status {
   position: absolute;
   bottom: 2px;
@@ -50,13 +47,13 @@
   height: 10px;
   border-radius: 50%;
   border: 2px solid white;
+  transition: background 0.3s ease;
 }
 
 .status.online {
   background: #4caf50;
 }
 
-/* USER INFO */
 .user-info .name {
   margin: 0;
   font-weight: 200;
@@ -87,11 +84,11 @@
 }
 
 .menu li {
-  padding: 10px 12px;
+  padding: clamp(8px, 1vw, 12px) clamp(10px, 1.5vw, 14px);
+  font-size: clamp(0.75rem, 0.9vw, 0.9rem);
   border-radius: 8px;
   cursor: pointer;
   letter-spacing: 0.08em;
-  font-size: 0.8em;
   color: #333;
   font-family: 'Gloock', sans-serif;
   transition: all 0.2s ease;
@@ -105,45 +102,4 @@
 .menu li.active {
   background: #F5E8F1;
   transform: translateX(8px);
-}
-
-/* Kollapsad meny på mobil */
-@media (max-width: 768px) {
-  .menu {
-    width: 100%;
-    height: auto;
-    max-height: 40vh;
-    border-right: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 8px;
-    padding: 12px;
-  }
-
-  .menu-profile {
-    width: 100%;
-    transform: translateX(0);
-  }
-
-  .menu ul {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
-  .menu li:hover,
-  .menu li.active {
-    transform: translateX(0);
-  }
-}
-
-@media (max-width: 480px) {
-  .menu {
-    padding: 10px;
-  }
-
-  .menu li {
-    font-size: 0.8em;
-    padding: 8px 10px;
-  }
 }
