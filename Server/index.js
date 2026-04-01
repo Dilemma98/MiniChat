@@ -39,6 +39,14 @@ io.on("connection", (socket) => {
       data.userName,
     );
   });
+
+  socket.on("typing", ({senderId, receiverId}) => {
+    io.to(receiverId).emit("typing", { senderId });
+  });
+
+  socket.on("read", ({senderId, receiverId}) => {
+    io.to(receiverId).emit("isRead", { senderId });
+  })
 });
 
 app.use(cors());

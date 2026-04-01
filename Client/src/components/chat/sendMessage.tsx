@@ -1,5 +1,5 @@
 import SendIcon from "@mui/icons-material/Send";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import "../../assets/styles/chatPage.css";
 import { socket } from "../../services/websocket";
 import type { SendMessageProps } from "../../props/chatProp";
@@ -19,11 +19,10 @@ export default function WriteMessage({
   const handleSend = () => {
     if (!message.trim()) return;
 
-    // Skicka meddelandet som en vanlig text med radbrytningar (\n)
     socket.emit("send_message", {
       senderId: senderUserId,
       receiverId: receiverUserId,
-      message: message, // Radbrytningar sparas som text (\n)
+      message: message,
       userName: JSON.parse(userLs || "{}").name,
       createdAt: new Date().toISOString(),
     });
@@ -34,7 +33,7 @@ export default function WriteMessage({
         {
           senderId: senderUserId,
           receiverId: receiverUserId,
-          message: message, // Skicka med meddelandet med radbrytningar
+          message: message,
           userName: JSON.parse(userLs || "{}").name,
           createdAt: new Date().toISOString(),
         },
@@ -65,7 +64,14 @@ export default function WriteMessage({
         ref={inputRef}
         contentEditable
         suppressContentEditableWarning
-        onInput={(e) => setMessage(e.currentTarget.innerText ?? "")}
+        onInput={(e) => {
+          setMessage(e.currentTarget.innerText ?? "");
+          socket.emit("typing", {
+            senderId: senderUserId,
+            receiverId: receiverUserId,
+          });
+          console.log("Typing event emitted from:", senderUserId, receiverUserId);
+        }}
         className="textArea"
         data-placeholder="Skriv ett meddelande..."
       />

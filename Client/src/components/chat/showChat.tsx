@@ -1,7 +1,7 @@
 import type { ShowChatProps } from "../../props/chatProp";
 import "../../assets/styles/chatPage.css";
 import { socket } from "../../services/websocket";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLayoutEffect } from "react";
 
 export default function ShowChat({
@@ -12,11 +12,14 @@ export default function ShowChat({
 }: ShowChatProps) {
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const chatBoxRef = useRef<HTMLDivElement | null>(null);
-  const sortedMessages = [...messages].sort((a,b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+  const sortedMessages = [...messages].sort(
+    (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+  );
+  const [isRead, setIsRead] = useState(false);
   const handleReceiveMessage = (data: any) => {
     console.log("Received message:", data);
 
-    if (data.senderId === currentUserId.id) return;
+    if (data.senderId !== chosenUserId.id) return;
     if (setFetchedMessages) {
       setFetchedMessages((prevMessages) => [...prevMessages, data]);
     }
@@ -29,10 +32,35 @@ export default function ShowChat({
     return () => {
       socket.off("receive_message", handleReceiveMessage);
     };
-  }, []);
+  }, [currentUserId, chosenUserId]);
+
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  useEffect(() => {
+    if (messages.length > 0 && chosenUserId) {
+      console.log("Emitting read receipt for:", chosenUserId.id);
+      socket.emit("read", {
+        senderId: currentUserId.id,
+        receiverId: chosenUserId.id,
+      });
+    }
+  }, [messages]);
+
+  useEffect(() => {
+    socket.on("isRead", ({ senderId }) => {
+      console.log("Read receipt received from:", senderId);
+      if (senderId === chosenUserId.id) setIsRead(true);
+    });
+    return () => {
+      socket.off("isRead");
+    };
+  }, [chosenUserId]);
+
+  useEffect(() => {
+  setIsRead(false);
+}, [chosenUserId]);
 
   useLayoutEffect(() => {
     if (chatBoxRef.current) {
@@ -55,7 +83,7 @@ export default function ShowChat({
               const previousMsg = messages[index - 1];
               const showName =
                 !previousMsg || previousMsg.senderId !== msg.senderId;
-
+              const showReadReceipt = !previousMsg || previousMsg.senderId !== msg.senderId;
               return (
                 <div
                   key={index}
@@ -74,6 +102,11 @@ export default function ShowChat({
                       minute: "2-digit",
                     })}
                   </p>
+                  {isRead && isOwn && (
+                    <p style={{ fontSize: "0.7em", marginTop: "1px" }}>
+                      {showReadReceipt && "Läst"}
+                    </p>
+                  )}
                 </div>
               );
             })}

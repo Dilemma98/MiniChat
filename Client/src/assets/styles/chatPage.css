@@ -2,10 +2,9 @@
 
 .chatPage {
   display: flex;
-  justify-content: flex-start;
+  flex-direction: column;  /* ← ändra från row */
   padding: 1.5em;
-  min-height: 70vh;
-  max-height: 90vh;
+  height: 100%;
   width: 100%;
   box-sizing: border-box;
   overflow: hidden;
@@ -35,8 +34,7 @@
   flex-direction: column;
   gap: 0em;
   width: 100%;
-  height: 105%;
-  margin: 0 auto;
+  flex: 1;          /* ← växer och fyller utrymmet */
   overflow-y: auto;
 }
 
@@ -100,6 +98,42 @@
   background-color: #ede8e8;
   color: #2e2020;
   border-bottom-left-radius: 4px;
+}
+.isTypingBar {
+  position: absolute;
+  bottom: 18%;
+  left: 32%;
+  padding: 2px 8px;
+  min-height: 1.4em;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  color: #585858;
+}
+
+.bubbleTyping {
+  background-color: #ede8e8;
+  color: #2e2020;
+  border-radius: 18px;
+  padding: 10px 12px;
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #999;
+  animation: bounce 1.2s infinite ease-in-out;
+}
+
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-6px); }
 }
 
 .inputWrapper {
