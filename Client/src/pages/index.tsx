@@ -2,10 +2,15 @@ import { useState, useEffect } from "react";
 import Header from "../components/header";
 import SignedIn from "./signedInPage";
 import AuthModal from "../components/auth/authModal";
+import { socket } from "../services/websocket";
+import { useNotification } from "../context/notificationContext";
+import NotificationBadge from "../components/notificationBadge.tsx";
 
 export default function StartPage() {
   const [ user, setUser ] = useState(null);
   const [modalType, setModalType] = useState<"login" | "register" | null>(null);
+    const { addNotification } = useNotification();
+  const [notifications, setNotifications] = useState<{ senderId: number; userName: string } | null>(null);
   
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
@@ -13,6 +18,20 @@ export default function StartPage() {
       setUser(JSON.parse(savedUser));
     }
   },[]);
+
+  useEffect(() => {
+  const handleMessage = (data: any) => {
+    console.log("NOTIS NYTT MEDDELANDE:", data);
+    addNotification(data);
+    setNotifications(data);
+  };
+
+  socket.on("receive_message", handleMessage);
+
+  return () => {
+    socket.off("receive_message", handleMessage);
+  };
+}, [addNotification]);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", width: "95%", margin: "0 auto", height: "100vh" }}>
@@ -22,7 +41,12 @@ export default function StartPage() {
         onLogout={() => setUser(null)}
         />
         { user && (
-          <SignedIn user={user}/>
+         <div>
+           <SignedIn user={user}/>
+          {notifications && (
+            <NotificationBadge notis={notifications}/>
+          )}
+         </div>
         )}
         {modalType && (
           <AuthModal 

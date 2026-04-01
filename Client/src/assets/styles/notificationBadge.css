@@ -1,23 +1,25 @@
 .notificationBadge {
   position: fixed;
-  top: 2em;
-  right: 2em;
+  bottom: 4em;
+  right: 4em;
   z-index: 1000;
-  width: 10em; /* Rektangelns bredd */
-  height: 35px; /* Rektangelns höjd */
+  width: 12em;
+  height: 3em; 
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px; /* Lagom textstorlek */
-  font-weight: bold;
-  border-radius: 6px; /* Lätt rundade hörn för en modern känsla */
-  background: rgba(0, 0, 0, 0.1); /* Lätt genomskinlig bakgrund */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Lätt skugga för djup */
-  transition: transform 0.3s ease, background 0.3s ease; /* Smidig övergång */
+  padding: 1em;
+  gap: 1em;
+  font-size: 14px;
+  /* font-weight: bold; */
+  border-radius: 6px; 
+  background: rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  transition: transform 0.3s ease, background 0.3s ease; 
 }
 
 .notificationBadge:hover {
-  background: rgba(0, 0, 0, 0.2); /* Mer genomskinlig vid hover */
+  background: rgba(0, 0, 0, 0.2); 
 }
 
 .notificationBadge:active {

@@ -29,3 +29,11 @@ export type SendMessageProps = {
   isTyping?: boolean;
   setIsTyping?: Dispatch<SetStateAction<boolean>>;
 };
+
+export type NotificationProp = {
+  notis: { 
+    senderId: number;
+    userName: string;
+  }
+  setNotifications?: Dispatch<SetStateAction<boolean>>;
+}

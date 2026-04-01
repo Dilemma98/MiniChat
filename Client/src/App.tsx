@@ -2,14 +2,24 @@ import StartPage from "./pages";
 import "../src/assets/styles/App.css";
 import { useEffect } from "react";
 import { socket } from "./services/websocket";
+// import { useNotification } from "./context/notificationContext";
 
 function App() {
 
-  useEffect(() => {
-    socket.on("connect", () => {
-      console.log("connected!", socket.id);
-    });
-  }, []);
+
+useEffect(() => {
+  const handleConnect = () => {
+    console.log("connected!", socket.id);
+  };
+
+  socket.on("connect", handleConnect);
+
+  return () => {
+    socket.off("connect", handleConnect);
+  };
+}, []);
+
+
 
   return (
     <div className="app">
