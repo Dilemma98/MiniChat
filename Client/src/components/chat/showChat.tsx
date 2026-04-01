@@ -12,6 +12,7 @@ export default function ShowChat({
 }: ShowChatProps) {
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const chatBoxRef = useRef<HTMLDivElement | null>(null);
+  const sortedMessages = [...messages].sort((a,b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
   const handleReceiveMessage = (data: any) => {
     console.log("Received message:", data);
 
@@ -49,7 +50,7 @@ export default function ShowChat({
                 </p>
               </div>
             )
-          : messages.map((msg, index) => {
+          : sortedMessages.map((msg, index) => {
               const isOwn = msg.senderId === currentUserId.id;
               const previousMsg = messages[index - 1];
               const showName =
