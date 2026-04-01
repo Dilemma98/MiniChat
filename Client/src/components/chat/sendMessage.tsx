@@ -43,7 +43,7 @@ const handleSend = () => {
         ref={inputRef}
         contentEditable
         suppressContentEditableWarning
-        onInput={(e) => setMessage(e.currentTarget.textContent ?? "")}
+        onInput={(e) => setMessage(e.currentTarget.innerText ?? "")}
         className="textArea"
         data-placeholder="Skriv ett meddelande..."
       />
