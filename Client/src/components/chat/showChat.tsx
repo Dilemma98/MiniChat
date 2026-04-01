@@ -52,15 +52,20 @@ export default function ShowChat({
           : messages.map((msg, index) => {
               const isOwn = msg.senderId === currentUserId.id;
               const previousMsg = messages[index - 1];
-              const showName = !previousMsg || previousMsg.senderId !== msg.senderId;
-              // const userName = msg.userName;
-              console.log("MESSAGE FROM USER", msg);
+              const showName =
+                !previousMsg || previousMsg.senderId !== msg.senderId;
+
               return (
                 <div
                   key={index}
                   className={`messageRow ${isOwn ? "own" : "other"}`}
                 >
-                  {!isOwn && showName && <p style={{ fontSize: "0.7em", marginBottom: "2px"}}>{msg.userName}</p>}
+                  {!isOwn && showName && (
+                    <p style={{ fontSize: "0.7em", marginBottom: "2px" }}>
+                      {msg.userName}
+                    </p>
+                  )}
+                  {/* Direkt rendera text med radbrytningar */}
                   <div className="bubble">{msg.message}</div>
                   <p style={{ fontSize: "0.7em", marginTop: "1px" }}>
                     {new Date(msg.createdAt).toLocaleTimeString([], {
