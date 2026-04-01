@@ -12,6 +12,23 @@
 }
 
 /* ============ CHATAREA =============== */
+.emojiPickerWrapper{
+  position: absolute;
+  bottom: 60px;
+  right: 20px;
+  z-index: 1000;
+
+}
+.emojiPickerWrapper aside {
+  --epr-emoji-size: 20px !important;
+}
+.emojiBtn{
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1em;
+  color: #333;
+}
 
 .chatBox {
   display: flex;
@@ -94,6 +111,7 @@
   padding: 12px 0;
   margin-bottom: 1em;
   flex-wrap: wrap;
+  position: relative;
 }
 
 .textArea {
