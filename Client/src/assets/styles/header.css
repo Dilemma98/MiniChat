@@ -1,9 +1,9 @@
-@import url('https://fonts.cdnfonts.com/css/hello-bonia-serif');
-@import url('https://fonts.cdnfonts.com/css/laughter');
 @import url('https://fonts.cdnfonts.com/css/vivian');
 
 .header {
-  padding: 0.75em 1em;
+  padding: 0.75em 1.5em;
+  background: #fff;
+  border-bottom: 0.5px solid #F4C0D1;
 }
 
 .header-content {
@@ -37,13 +37,12 @@
 }
 
 .title {
-  margin: 0em 0.1em;
+  margin: 0 0.1em;
   font-size: clamp(1.6em, 5vw, 3em);
   letter-spacing: 0.1em;
   font-weight: 200;
   font-family: 'Vivian', sans-serif;
-  color: rgb(43, 43, 43);
-  text-shadow: rgba(71, 40, 58, 0.861) 1px 0 7px;
+  color: #72243E;
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
@@ -51,22 +50,34 @@
 }
 
 .btn {
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: none;
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: 0.5px solid #F4C0D1;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
   white-space: nowrap;
+  transition: all 0.2s ease;
+  font-family: 'Gloock', sans-serif;
 }
 
 .btn.primary {
-  background: #222;
-  color: white;
+  background: #D4537E;
+  color: #fff;
+  border-color: #D4537E;
+}
+
+.btn.primary:hover {
+  background: #993556;
+  border-color: #993556;
 }
 
 .btn.secondary {
-  background: #e0e0e0;
-  color: #222;
+  background: #FBEAF0;
+  color: #72243E;
+}
+
+.btn.secondary:hover {
+  background: #F4C0D1;
 }
 
 @media (max-width: 480px) {
@@ -75,7 +86,7 @@
   }
 
   .btn {
-    padding: 5px 9px;
+    padding: 5px 12px;
     font-size: 12px;
   }
 }

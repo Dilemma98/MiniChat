@@ -7,59 +7,57 @@
   flex-direction: column;
   padding: 16px;
   gap: clamp(8px, 1.5vw, 16px);
-  backdrop-filter: blur(12px);
-  border-right: 1px solid rgba(0, 0, 0, 0.06);
-  transition: width 0.3s ease, transform 0.3s ease;
+  background: #fff;
+  border-right: 0.5px solid #F4C0D1;
   overflow-y: auto;
 }
 
 .menu-profile {
   display: flex;
   align-items: center;
-  align-self: flex-start;
-  width: 90%;
   gap: 12px;
-  padding: 12px;
-  border-radius: 12px;
-  background: rgba(0, 0, 0, 0.03);
-  transform: translateX(4px);
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #FBEAF0;
+  border-left: 3px solid #D4537E;
 }
 
 .avatar {
   position: relative;
-  width: 42px;
-  height: 42px;
+  width: 36px;
+  height: 36px;
   flex-shrink: 0;
   border-radius: 50%;
-  background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
+  background: #F4C0D1;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #72243E;
   cursor: pointer;
 }
 
 .status {
   position: absolute;
-  bottom: 2px;
-  right: 2px;
-  width: 10px;
-  height: 10px;
+  bottom: 1px;
+  right: 1px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
-  border: 2px solid white;
-  transition: background 0.3s ease;
+  border: 2px solid #fff;
 }
 
 .status.online {
-  background: #4caf50;
+  background: #639922;
 }
 
 .user-info .name {
   margin: 0;
-  font-weight: 200;
-  letter-spacing: 0.1em;
-  font-size: 0.95em;
-  color: #343434;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  font-size: 0.9em;
+  color: #72243E;
   font-family: 'Gloock', sans-serif;
   cursor: pointer;
   white-space: nowrap;
@@ -73,33 +71,37 @@
   gap: 1em;
 }
 
-/* MENU */
 .menu ul {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .menu li {
-  padding: clamp(8px, 1vw, 12px) clamp(10px, 1.5vw, 14px);
+  padding: clamp(8px, 1vw, 10px) clamp(10px, 1.5vw, 14px);
   font-size: clamp(0.75rem, 0.9vw, 0.9rem);
   border-radius: 8px;
   cursor: pointer;
-  letter-spacing: 0.08em;
-  color: #333;
+  letter-spacing: 0.05em;
+  color: #888780;
   font-family: 'Gloock', sans-serif;
   transition: all 0.2s ease;
 }
 
 .menu li:hover {
-  background: #F5E8F1;
-  transform: translateX(8px);
+  background: #FBEAF0;
+  color: #72243E;
+  transform: translateX(4px);
 }
 
 .menu li.active {
-  background: #F5E8F1;
-  transform: translateX(8px);
+  background: #FBEAF0;
+  color: #72243E;
+  border-left: 3px solid #D4537E;
+  border-radius: 0 8px 8px 0;
+  padding-left: calc(clamp(10px, 1.5vw, 14px) + 3px);
+  transform: none;
 }

@@ -69,6 +69,14 @@ export default function ShowChat({
   }, [messages]);
   return (
     <div className="chatPage">
+      {chosenUserId && (
+      <div className="chatHeader">
+        <div className="chatHeaderAvatar">
+          {chosenUserId.fname?.charAt(0).toUpperCase()}
+        </div>
+        <span className="chatHeaderName">{chosenUserId.fname}</span>
+      </div>
+    )}
       <div className="chatBox">
         {messages.length === 0
           ? chosenUserId && (
