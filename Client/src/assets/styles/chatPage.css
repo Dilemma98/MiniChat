@@ -100,14 +100,14 @@
 }
 
 .messageRow.other .bubble {
-  background: #e8ced7;
+  background: #F4C0D1;
   color: #2C2C2A;
   border-radius: 4px 16px 16px 16px;
 }
 
 .isTypingBar {
   position: absolute;
-  bottom: 10%;
+  bottom: 11%;
   left: 30%;
   padding: 2px 8px;
   min-height: 1.4em;
@@ -117,7 +117,7 @@
 }
 
 .bubbleTyping {
-  background: #F1EFE8;
+  background: #F4C0D1;
   color: #2C2C2A;
   border-radius: 4px 16px 16px 16px;
   padding: 10px 12px;
@@ -130,7 +130,7 @@
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #D4537E;
+  background: #000000;
   animation: bounce 1.2s infinite ease-in-out;
 }
 
