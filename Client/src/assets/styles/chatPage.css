@@ -105,6 +105,24 @@
   border-radius: 4px 16px 16px 16px;
 }
 
+.dateDivider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0;
+  color: #B4B2A9;
+  font-size: 0.7em;
+  font-family: 'Gloock', sans-serif;
+}
+
+.dateDivider::before,
+.dateDivider::after {
+  content: '';
+  flex: 1;
+  height: 0.5px;
+  background: #F4C0D1;
+}
+
 .isTypingBar {
   position: absolute;
   bottom: 11%;
@@ -219,7 +237,7 @@
   gap: 10px;
   padding: 12px 0 16px;
   border-bottom: 0.5px solid #F4C0D1;
-  margin-bottom: 12px;
+  /* margin-bottom: 12px; */
   flex-shrink: 0;
 }
 
@@ -242,6 +260,7 @@
   font-weight: 500;
   color: #2C2C2A;
   font-family: 'Gloock', sans-serif;
+  text-transform: capitalize;
 }
 
 .chatMenu ul {
@@ -264,6 +283,7 @@
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
+  text-transform: capitalize;
 }
 
 .chatMenu li:hover {

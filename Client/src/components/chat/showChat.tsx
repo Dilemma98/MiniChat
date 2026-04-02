@@ -1,8 +1,8 @@
+import React from "react";
 import type { ShowChatProps } from "../../props/chatProp";
 import "../../assets/styles/chatPage.css";
 import { socket } from "../../services/websocket";
-import { useEffect, useRef, useState } from "react";
-import { useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 export default function ShowChat({
   messages,
@@ -16,22 +16,17 @@ export default function ShowChat({
     (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
   );
   const [isRead, setIsRead] = useState(false);
-  const handleReceiveMessage = (data: any) => {
-    console.log("Received message:", data);
 
+  const handleReceiveMessage = (data: any) => {
     if (data.senderId !== chosenUserId.id) return;
     if (setFetchedMessages) {
       setFetchedMessages((prevMessages) => [...prevMessages, data]);
     }
-
-    return;
   };
 
   useEffect(() => {
     socket.on("receive_message", handleReceiveMessage);
-    return () => {
-      socket.off("receive_message", handleReceiveMessage);
-    };
+    return () => { socket.off("receive_message", handleReceiveMessage); };
   }, [currentUserId, chosenUserId]);
 
   useEffect(() => {
@@ -40,7 +35,6 @@ export default function ShowChat({
 
   useEffect(() => {
     if (messages.length > 0 && chosenUserId) {
-      console.log("Emitting read receipt for:", chosenUserId.id);
       socket.emit("read", {
         senderId: currentUserId.id,
         receiverId: chosenUserId.id,
@@ -50,12 +44,9 @@ export default function ShowChat({
 
   useEffect(() => {
     socket.on("isRead", ({ senderId }) => {
-      console.log("Read receipt received from:", senderId);
       if (senderId === chosenUserId.id) setIsRead(true);
     });
-    return () => {
-      socket.off("isRead");
-    };
+    return () => { socket.off("isRead"); };
   }, [chosenUserId]);
 
   useEffect(() => {
@@ -67,16 +58,26 @@ export default function ShowChat({
       chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
     }
   }, [messages]);
+
+  const formatDate = (date: Date) => {
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+    if (date.toDateString() === today.toDateString()) return "Idag";
+    if (date.toDateString() === yesterday.toDateString()) return "Igår";
+    return date.toLocaleDateString("sv-SE", { day: "numeric", month: "long" });
+  };
+
   return (
     <div className="chatPage">
       {chosenUserId && (
-      <div className="chatHeader">
-        <div className="chatHeaderAvatar">
-          {chosenUserId.fname?.charAt(0).toUpperCase()}
+        <div className="chatHeader">
+          <div className="chatHeaderAvatar">
+            {chosenUserId.fname?.charAt(0).toUpperCase()}
+          </div>
+          <span className="chatHeaderName">{chosenUserId.fname}</span>
         </div>
-        <span className="chatHeaderName">{chosenUserId.fname}</span>
-      </div>
-    )}
+      )}
       <div className="chatBox">
         {messages.length === 0
           ? chosenUserId && (
@@ -88,32 +89,38 @@ export default function ShowChat({
             )
           : sortedMessages.map((msg, index) => {
               const isOwn = msg.senderId === currentUserId.id;
-              const previousMsg = messages[index - 1];
-              const showName =
-                !previousMsg || previousMsg.senderId !== msg.senderId;
+              const previousMsg = sortedMessages[index - 1];
+              const showName = !previousMsg || previousMsg.senderId !== msg.senderId;
               const isLast = index === sortedMessages.length - 1;
+              const msgDate = new Date(msg.createdAt);
+              const prevDate = previousMsg ? new Date(previousMsg.createdAt) : null;
+              const showDateDivider = !prevDate || msgDate.toDateString() !== prevDate.toDateString();
+
               return (
-                <div
-                  key={index}
-                  className={`messageRow ${isOwn ? "own" : "other"}`}
-                >
-                  {!isOwn && showName && (
-                    <p style={{ fontSize: "0.7em", marginBottom: "2px" }}>
-                      {msg.userName}
+                <React.Fragment key={index}>
+                  {showDateDivider && (
+                    <div className="dateDivider">
+                      <span>{formatDate(msgDate)}</span>
+                    </div>
+                  )}
+                  <div className={`messageRow ${isOwn ? "own" : "other"}`}>
+                    {!isOwn && showName && (
+                      <p style={{ fontSize: "0.7em", marginBottom: "2px" }}>
+                        {msg.userName}
+                      </p>
+                    )}
+                    <div className="bubble">{msg.message}</div>
+                    <p style={{ fontSize: "0.7em", marginTop: "1px" }}>
+                      {new Date(msg.createdAt).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
                     </p>
-                  )}
-                  {/* Direkt rendera text med radbrytningar */}
-                  <div className="bubble">{msg.message}</div>
-                  <p style={{ fontSize: "0.7em", marginTop: "1px" }}>
-                    {new Date(msg.createdAt).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </p>
-                  {isRead && isOwn && isLast && (
-                    <p style={{ fontSize: "0.7em", marginTop: "1px" }}>Läst</p>
-                  )}
-                </div>
+                    {isRead && isOwn && isLast && (
+                      <p style={{ fontSize: "0.7em", marginTop: "1px" }}>Läst</p>
+                    )}
+                  </div>
+                </React.Fragment>
               );
             })}
         <div ref={bottomRef} />
