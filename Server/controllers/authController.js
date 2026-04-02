@@ -56,7 +56,7 @@ export const loginController = async (req, res) => {
     res.status(200).json({
       message: "Inloggad!",
       token,
-      user: { name: data.fname, id: data.id },
+      user: { name: data.fname, id: data.id , profilePic: data.profilePicURL},
     });
   } catch (error) {
     console.log(error);

@@ -1,21 +1,9 @@
 import { Router } from "express";
 import { registerController, loginController } from "../controllers/authController.js";
-import { getAllUsersController } from "../controllers/userController.js";
+import { getAllUsersController, upload, uploadProfilePicController } from "../controllers/userController.js";
 import { getConvoByIdController} from "../controllers/chatController.js";
 
 export const router = Router();
-
-router.get("/test", (req, res) => {
-  res.send("Svar från testroutern");
-});
-
-router.get("/conversations", (req, res) => {
-  const conversationes = [
-    { userId: 1, message: "Hej!", userName: "Emma" },
-    { userId: 2, message: "Tjena, läget?", userName: "Anna" },
-  ];
-  res.json(conversationes);
-});
 
 router.get("/friends", (req, res) => {
   res.send("Nu är du inne i vänner");
@@ -33,4 +21,5 @@ router.get("/allUsers", getAllUsersController);
 
 router.get("/getConvoById/:senderId/:receiverId", getConvoByIdController);
 
+router.post("/uploadProfilePic", upload.single("profilePic"), uploadProfilePicController);
 // router.post("/sendMessage/:senderId/:receiverId", sendMessageController);

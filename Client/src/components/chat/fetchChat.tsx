@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import "../../assets/styles/chosenpage.css";
+// import "../../assets/styles/chosenpage.css";
 import ShowChat from "./showChat";
 // import type { Message } from "../../types/chat";
 // import { socket } from "../../services/websocket";

@@ -11,7 +11,12 @@ export default function Menu({ user, onNavigate, navTab }: SignedInProp) {
     <nav className="menu">
       <div className="menu-profile">
         <div className="avatar">
-          <AccountCircleIcon />
+          {/* <AccountCircleIcon /> */}
+          {user?.profilePic ? (
+            <img className="img"src={user?.profilePic}/>
+          ) : (
+            <AccountCircleIcon /> 
+          )}
           <span className="status online"></span>
         </div>
 
