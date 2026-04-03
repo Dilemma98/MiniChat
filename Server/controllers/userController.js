@@ -8,16 +8,14 @@ export const getAllUsersController = async (req, res) => {
     try{
         const data = await supabase
             .from("users")
-            .select("fname, lname, id");
+            .select("fname, lname, id, profilePicURL");
 
         res.json({ users: data })
-
-        res.status(201).json({ message: "Användare hämtade!", resultat: data})
-        console.log("USERS", res)
     } catch{
-        res.satus(500).json({ message: "Kunde inte hämta användare", error: err.message })
+        res.status(500).json({ message: "Kunde inte hämta användare", error: err.message })
     }
 }
+
 
 export const uploadProfilePicController = async (req, res) => {
     try{
@@ -54,6 +52,6 @@ export const uploadProfilePicController = async (req, res) => {
 
         res.json({ profilePicURL: urlData.publicUrl });
     } catch {
-        res.satus(500).json({ message: "Uppladdningen misslyckades", error: err.message });
+        res.status(500).json({ message: "Uppladdningen misslyckades", error: err.message });
     }
 }

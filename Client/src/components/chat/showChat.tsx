@@ -26,7 +26,9 @@ export default function ShowChat({
 
   useEffect(() => {
     socket.on("receive_message", handleReceiveMessage);
-    return () => { socket.off("receive_message", handleReceiveMessage); };
+    return () => {
+      socket.off("receive_message", handleReceiveMessage);
+    };
   }, [currentUserId, chosenUserId]);
 
   useEffect(() => {
@@ -46,7 +48,9 @@ export default function ShowChat({
     socket.on("isRead", ({ senderId }) => {
       if (senderId === chosenUserId.id) setIsRead(true);
     });
-    return () => { socket.off("isRead"); };
+    return () => {
+      socket.off("isRead");
+    };
   }, [chosenUserId]);
 
   useEffect(() => {
@@ -72,9 +76,21 @@ export default function ShowChat({
     <div className="chatPage">
       {chosenUserId && (
         <div className="chatHeader">
-          <div className="chatHeaderAvatar">
-            {chosenUserId.fname?.charAt(0).toUpperCase()}
-          </div>
+          {chosenUserId.profilePicURL ? (
+            <img
+              src={chosenUserId.profilePicURL}
+              style={{
+                width: 32,
+                height: 32,
+                borderRadius: "50%",
+                objectFit: "cover",
+              }}
+            />
+          ) : (
+            <div className="chatHeaderAvatar">
+              <p>{chosenUserId.fname?.charAt(0).toUpperCase()}</p>
+            </div>
+          )}
           <span className="chatHeaderName">{chosenUserId.fname}</span>
         </div>
       )}
@@ -90,11 +106,48 @@ export default function ShowChat({
           : sortedMessages.map((msg, index) => {
               const isOwn = msg.senderId === currentUserId.id;
               const previousMsg = sortedMessages[index - 1];
-              const showName = !previousMsg || previousMsg.senderId !== msg.senderId;
               const isLast = index === sortedMessages.length - 1;
               const msgDate = new Date(msg.createdAt);
-              const prevDate = previousMsg ? new Date(previousMsg.createdAt) : null;
-              const showDateDivider = !prevDate || msgDate.toDateString() !== prevDate.toDateString();
+              const prevDate = previousMsg
+                ? new Date(previousMsg.createdAt)
+                : null;
+              const showDateDivider =
+                !prevDate || msgDate.toDateString() !== prevDate.toDateString();
+
+              const avatar = (
+                src: string | null,
+                fallback: string | undefined,
+              ) => (
+                <div style={{ flexShrink: 0, marginTop: 2 }}>
+                  {src ? (
+                    <img
+                      src={src}
+                      style={{
+                        width: 24,
+                        height: 24,
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  ) : (
+                    <span
+                      style={{
+                        width: 24,
+                        height: 24,
+                        borderRadius: "50%",
+                        background: "#F4C0D1",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: "0.7em",
+                        color: "#72243E",
+                      }}
+                    >
+                      {fallback?.charAt(0).toUpperCase()}
+                    </span>
+                  )}
+                </div>
+              );
 
               return (
                 <React.Fragment key={index}>
@@ -103,21 +156,61 @@ export default function ShowChat({
                       <span>{formatDate(msgDate)}</span>
                     </div>
                   )}
+
                   <div className={`messageRow ${isOwn ? "own" : "other"}`}>
-                    {!isOwn && showName && (
-                      <p style={{ fontSize: "0.7em", marginBottom: "2px" }}>
-                        {msg.userName}
-                      </p>
-                    )}
-                    <div className="bubble">{msg.message}</div>
-                    <p style={{ fontSize: "0.7em", marginTop: "1px" }}>
-                      {new Date(msg.createdAt).toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
-                    </p>
-                    {isRead && isOwn && isLast && (
-                      <p style={{ fontSize: "0.7em", marginTop: "1px" }}>Läst</p>
+                    {isOwn ? (
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "flex-start",
+                          gap: 6,
+                          justifyContent: "flex-end",
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-end",
+                          }}
+                        >
+                          <div className="bubble">{msg.message}</div>
+                          <p style={{ fontSize: "0.7em", marginTop: "1px" }}>
+                            {new Date(msg.createdAt).toLocaleTimeString([], {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })}
+                          </p>
+                          {isRead && isLast && (
+                            <p style={{ fontSize: "0.7em", marginTop: "1px" }}>
+                              Läst
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    ) : (
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "flex-start",
+                          gap: 6,
+                        }}
+                      >
+                        {avatar(msg.userProfilePic ?? null, msg.userName)}
+                        <div
+                          style={{ display: "flex", flexDirection: "column" }}
+                        >
+                          <div className="bubble">{msg.message}</div>
+                          <p style={{ fontSize: "0.7em", marginTop: "1px" }}>
+                            {new Date(msg.createdAt).toLocaleTimeString([], {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })}
+                          </p>
+                        </div>
+                      </div>
                     )}
                   </div>
                 </React.Fragment>

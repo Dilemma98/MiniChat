@@ -5,7 +5,7 @@ export const getConvoByIdController = async (req, res) => {
   try {
     const { data, error } = await supabase
       .from("conversations")
-      .select("*, users!sender_id (fname)")
+      .select("*, users!sender_id (fname, profilePicURL)")
       .or(
         `and(sender_id.eq.${senderId},receiver_id.eq.${receiverId}), and(sender_id.eq.${receiverId},receiver_id.eq.${senderId})`,
       );

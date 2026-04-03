@@ -4,4 +4,5 @@ export type Message= {
 	message: string;
 	userName: string;
 	createdAt: string;
+	userProfilePic: string;
 }

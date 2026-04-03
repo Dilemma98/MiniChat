@@ -39,6 +39,7 @@ io.on("connection", (socket) => {
       data.receiverId,
       data.message,
       data.userName,
+      data.profilePicURL
     );
   });
 

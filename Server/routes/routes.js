@@ -22,4 +22,3 @@ router.get("/allUsers", getAllUsersController);
 router.get("/getConvoById/:senderId/:receiverId", getConvoByIdController);
 
 router.post("/uploadProfilePic", upload.single("profilePic"), uploadProfilePicController);
-// router.post("/sendMessage/:senderId/:receiverId", sendMessageController);

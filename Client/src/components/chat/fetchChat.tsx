@@ -14,12 +14,12 @@ export default function FetchChat({
   receiverId,
   fetchedMessages,
   setFetchedMessages,
+ 
 }: FetchChatProps) {
   // const [fetchedMessages, setFetchedMessages] = useState<Message[]>([]);
 
   async function fetchChatById() {
-    console.log("Fetching chat", senderId, receiverId);
-    console.log("receiver", receiverId);
+    
     try {
       const response = await fetch(
         `${LIVE_URL}/api/getConvoById/${senderId.id}/${receiverId.id}`,
@@ -32,7 +32,6 @@ export default function FetchChat({
       );
 
       const res = await response.json();
-      console.log("Messages", res);
       if (setFetchedMessages) {
         setFetchedMessages(
           res.conversation.map((msg: any) => ({
@@ -41,6 +40,7 @@ export default function FetchChat({
             message: msg.message,
             userName: msg.users.fname,
             createdAt: msg.created_at,
+            userProfilePic: msg.users.profilePicURL
           })) || [],
         );
       }
@@ -59,6 +59,7 @@ export default function FetchChat({
       currentUserId={senderId}
       messages={fetchedMessages || []}
       setFetchedMessages={setFetchedMessages}
+      // profilePicUrl={profilePicUrl}
     />
   );
 }
