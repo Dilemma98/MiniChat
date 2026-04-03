@@ -1,7 +1,8 @@
 import type { ModalProps } from "../../props/modalProps";
 import { useState } from "react";
 import "../../assets/styles/authModal.css";
-import { LIVE_URL, 
+import {
+  LIVE_URL,
   // LOCAL_URL
 } from "../../url";
 import LoadingComponent from "../loadingComponent";
@@ -12,7 +13,34 @@ export default function AuthModal({ modalType, onClose, onLogin }: ModalProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-//   const [user, setUser] = useState(false);
+  //   const [user, setUser] = useState(false);
+
+  async function handleDemoLogin() {
+    setEmail("demo@mail.se");
+    setPassword("Test123");
+    try {
+      setLoading(true);
+      const response = await fetch(`${LIVE_URL}/api/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: "demo@mail.se",
+          password: "Test123",
+        }),
+      });
+      const res = await response.json();
+      localStorage.setItem("token", res.token);
+      if (res.user) {
+        localStorage.setItem("user", JSON.stringify(res.user));
+        onLogin(res.user);
+      }
+      onClose();
+    } catch {
+      console.error("Kunde inte logga in som demo");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   async function handleLogin() {
     try {
@@ -33,12 +61,12 @@ export default function AuthModal({ modalType, onClose, onLogin }: ModalProps) {
       localStorage.setItem("token", res.token);
       if (res.user) {
         localStorage.setItem("user", JSON.stringify(res.user));
-        console.log("USER", res.user)
+        console.log("USER", res.user);
         onLogin(res.user);
       }
       onClose();
     } catch {
-      console.error("Kunde inte logga in")
+      console.error("Kunde inte logga in");
     } finally {
       setLoading(false);
     }
@@ -76,10 +104,10 @@ export default function AuthModal({ modalType, onClose, onLogin }: ModalProps) {
   }
 
   async function handleKeyDown(e: React.KeyboardEvent, action: () => void) {
-  if (e.key === "Enter") {
-    action();
+    if (e.key === "Enter") {
+      action();
+    }
   }
-}
   return (
     <>
       <div className="modal-overlay" onClick={onClose}>
@@ -87,9 +115,7 @@ export default function AuthModal({ modalType, onClose, onLogin }: ModalProps) {
           <button className="modal-close" onClick={onClose}>
             ✕
           </button>
-          {loading && (
-            <LoadingComponent />
-          )}
+          {loading && <LoadingComponent />}
           {modalType === "login" ? (
             <>
               <h2 className="modal-title">Logga in</h2>
@@ -110,6 +136,9 @@ export default function AuthModal({ modalType, onClose, onLogin }: ModalProps) {
               <button className="modal-submit" onClick={handleLogin}>
                 Logga in
               </button>
+              <button className="modal-demo" onClick={handleDemoLogin}>
+                Prova demo
+              </button>
             </>
           ) : (
             <>
@@ -118,7 +147,7 @@ export default function AuthModal({ modalType, onClose, onLogin }: ModalProps) {
                 <input
                   className="modal-input"
                   type="text"
-                   autoFocus
+                  autoFocus
                   placeholder="Förnamn"
                   onChange={(e) => setFname(e.target.value)}
                 />
