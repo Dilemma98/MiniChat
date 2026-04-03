@@ -32,6 +32,7 @@ export default function ChatPage({ selectedUser }: ChatPageProps) {
         margin: "0 auto",
         height: "80vh",
       }}
+      className="chatPageWrapper"
     >
       <div style={{ display: "flex", flexDirection: "row", height: "80vh" }}>
         {selectedUser && (

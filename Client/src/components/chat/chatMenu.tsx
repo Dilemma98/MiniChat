@@ -56,7 +56,7 @@ export default function ChatMenu({ onSelectUser, onlineUsers }: ChatMenuProps) {
                     className={`status ${isOnline ? "online" : "offline"}`}
                   ></span>
                 </div>
-                <li
+                <li className="miniChatters"
                 >
                   {user.fname} {user.lname}
                 </li>

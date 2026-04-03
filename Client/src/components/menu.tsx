@@ -10,7 +10,7 @@ export default function Menu({ user, onNavigate, navTab }: SignedInProp) {
   return (
     <nav className="menu">
       <div className="menu-profile">
-        <div className="avatar">
+        <div className="avatarMenu">
           {/* <AccountCircleIcon /> */}
           {user?.profilePic ? (
             <img className="img" src={user?.profilePic} />

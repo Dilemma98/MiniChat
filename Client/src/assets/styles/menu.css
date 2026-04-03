@@ -22,7 +22,7 @@
   border-left: 3px solid #D4537E;
 }
 
-.avatar {
+.avatarMenu, .avatar {
   position: relative;
   width: 36px;
   height: 36px;
@@ -112,15 +112,20 @@
   transform: none;
 }
 
-@media (min-width: 769px) and (max-width: 900px) {
-
-}
-
 @media (min-width: 200px) and (max-width: 768px) {
  .menu{
-  width: 5em;
+  width: 4em;
+  padding: 8px;
+ }
+ .menu-profile{
+  width: 1.2em;
  }
  .itemText, .name{
   display: none;
+ }
+ .avatarMenu{
+  width: 28px;
+  height: 28px;
+  margin-left: -0.4em
  }
 }
