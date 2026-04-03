@@ -42,22 +42,35 @@ export default function ChatMenu({ onSelectUser, onlineUsers }: ChatMenuProps) {
           const isOnline = onlineUsers.includes(user.id);
           return (
             user.id !== currentUser.id && (
-              <div className="item" key={user.id}  onClick={() => {
-                    onSelectUser(user);
-                    console.log("Selected user", user.id);
-                  }}>
+              <div
+                className="item"
+                key={user.id}
+                onClick={() => {
+                  onSelectUser(user);
+                  console.log("Selected user", user.id);
+                }}
+              >
                 <div className="avatar">
                   {user?.profilePicURL ? (
-                    <img className="chatMenuPic" src={user?.profilePicURL} />
+                    <img
+                      src={user?.profilePicURL}
+                      style={{
+                        width: 32,
+                        height: 32,
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                      }}
+                    />
                   ) : (
-                    <AccountCircleIcon />
+                    <div className="chatHeaderAvatar">
+                      <p>{user?.fname?.charAt(0).toUpperCase()}{user?.lname?.charAt(0).toUpperCase()}</p>
+                    </div>
                   )}
                   <span
                     className={`status ${isOnline ? "online" : "offline"}`}
                   ></span>
                 </div>
-                <li className="miniChatters"
-                >
+                <li className="miniChatters">
                   {user.fname} {user.lname}
                 </li>
                 <div className="icon">

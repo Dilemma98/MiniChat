@@ -360,32 +360,30 @@
 @media (min-width: 200px) and (max-width: 768px) {
   .chatPageWrapper {
     width: 100% !important;
+    height: 75vh !important;
   }
-
   .chatMenu {
     min-width: 1em;
     max-width: 1.4em;
     padding-top: 1em;
   }
-
   .miniChatters,
   .icon {
     display: none !important;
   }
-
   .item {
     margin-left: -0.5em;
   }
-
   .chatMenuHeader {
     display: none;
   }
-
   .textArea {
     width: 60%
   }
-
   .chatPage {
     padding: 0.4em;
+  }
+  .inputWrapper {
+    margin-top: -1em;
   }
 }
