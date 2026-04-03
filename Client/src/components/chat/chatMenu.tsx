@@ -42,7 +42,10 @@ export default function ChatMenu({ onSelectUser, onlineUsers }: ChatMenuProps) {
           const isOnline = onlineUsers.includes(user.id);
           return (
             user.id !== currentUser.id && (
-              <div className="item" key={user.id}>
+              <div className="item" key={user.id}  onClick={() => {
+                    onSelectUser(user);
+                    console.log("Selected user", user.id);
+                  }}>
                 <div className="avatar">
                   {user?.profilePicURL ? (
                     <img className="chatMenuPic" src={user?.profilePicURL} />
@@ -54,10 +57,6 @@ export default function ChatMenu({ onSelectUser, onlineUsers }: ChatMenuProps) {
                   ></span>
                 </div>
                 <li
-                  onClick={() => {
-                    onSelectUser(user);
-                    console.log("Selected user", user.id);
-                  }}
                 >
                   {user.fname} {user.lname}
                 </li>

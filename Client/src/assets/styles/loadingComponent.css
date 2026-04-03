@@ -1,8 +1,9 @@
 /* HTML: <div class="loader"></div> */
+
 .loader {
   width: 60px;
   height: 30px;
-  --c: no-repeat radial-gradient(farthest-side, #DFC2D4 93%, #DFC2D4);
+  --c: no-repeat radial-gradient(farthest-side, #000 93%, #000);
   background:
     var(--c) 0    0,
     var(--c) 50%  0,
@@ -10,13 +11,14 @@
   background-size: 10px 10px;
   position: relative;
   animation: l4-0 1s linear infinite alternate;
+  margin: auto;
 }
 .loader:before {
   content: "";
   position: absolute;
   width: 8px;
   height: 12px;
-  background: #DFC2D4;
+  background: #000000;
   left: 0;
   top: 0;
   animation: 

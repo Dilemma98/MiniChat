@@ -4,16 +4,19 @@ import "../../assets/styles/authModal.css";
 import { LIVE_URL, 
   // LOCAL_URL
 } from "../../url";
+import LoadingComponent from "../loadingComponent";
 
 export default function AuthModal({ modalType, onClose, onLogin }: ModalProps) {
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 //   const [user, setUser] = useState(false);
 
   async function handleLogin() {
     try {
+      setLoading(true);
       const body = {
         email,
         password,
@@ -34,11 +37,16 @@ export default function AuthModal({ modalType, onClose, onLogin }: ModalProps) {
         onLogin(res.user);
       }
       onClose();
-    } catch {}
+    } catch {
+      console.error("Kunde inte logga in")
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleRegister() {
     try {
+      setLoading(false);
       const body = {
         fname,
         lname,
@@ -60,7 +68,11 @@ export default function AuthModal({ modalType, onClose, onLogin }: ModalProps) {
         onLogin(res.user);
       }
       onClose();
-    } catch {}
+    } catch {
+      console.error("Kunde inte logga in");
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleKeyDown(e: React.KeyboardEvent, action: () => void) {
@@ -75,7 +87,9 @@ export default function AuthModal({ modalType, onClose, onLogin }: ModalProps) {
           <button className="modal-close" onClick={onClose}>
             ✕
           </button>
-
+          {loading && (
+            <LoadingComponent />
+          )}
           {modalType === "login" ? (
             <>
               <h2 className="modal-title">Logga in</h2>

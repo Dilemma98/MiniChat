@@ -13,9 +13,9 @@ export default function Menu({ user, onNavigate, navTab }: SignedInProp) {
         <div className="avatar">
           {/* <AccountCircleIcon /> */}
           {user?.profilePic ? (
-            <img className="img"src={user?.profilePic}/>
+            <img className="img" src={user?.profilePic} />
           ) : (
-            <AccountCircleIcon /> 
+            <AccountCircleIcon />
           )}
           <span className="status online"></span>
         </div>
@@ -26,16 +26,25 @@ export default function Menu({ user, onNavigate, navTab }: SignedInProp) {
       </div>
 
       <ul>
-        <li className={`menuItem ${navTab === "Chattar" ? "active" : ""}`} onClick={() => onNavigate?.("Chattar")}>
-          <ChatBubbleIcon fontSize="small" /> Chattar
+        <li
+          className={`menuItem ${navTab === "Chattar" ? "active" : ""}`}
+          onClick={() => onNavigate?.("Chattar")}
+        >
+          <ChatBubbleIcon fontSize="small" /> <p className="itemText">Chattar</p>
           {/* If unread messages, show this icon */}
           {/* <MarkChatUnreadIcon fontSize="small" /> */}
         </li>
-        <li className={`menuItem ${navTab === "Vänner" ? "active" : ""}`} onClick={() => onNavigate?.("Vänner")}>
-          <GroupIcon fontSize="small" /> Vänner
+        <li
+          className={`menuItem ${navTab === "Vänner" ? "active" : ""}`}
+          onClick={() => onNavigate?.("Vänner")}
+        >
+          <GroupIcon fontSize="small" /> <p className="itemText">Vänner</p>
         </li>
-        <li className={`menuItem ${navTab === "Inställningar" ? "active" : ""}`} onClick={() => onNavigate?.("Inställningar")}>
-          <SettingsIcon fontSize="small" /> Inställningar
+        <li
+          className={`menuItem ${navTab === "Inställningar" ? "active" : ""}`}
+          onClick={() => onNavigate?.("Inställningar")}
+        >
+          <SettingsIcon fontSize="small" /> <p className="itemText">Inställningar</p>
         </li>
       </ul>
     </nav>

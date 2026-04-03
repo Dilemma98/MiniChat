@@ -318,7 +318,7 @@
 
 /* ======= RESPONSIVITET ======= */
 
-@media (max-width: 900px) {
+@media (min-width: 769px) and (max-width: 900px) {
   .chatMenu {
     width: 10%;
     min-width: 9em;
@@ -332,5 +332,15 @@
 
   .isTypingBar {
     left: 25%;
+  }
+}
+@media (min-width: 200px) and (max-width: 768px) {
+.chatMenu {
+    min-width: 1em;
+    max-width: 2em;
+    padding-top: 2em;
+  }
+  .chatMenuHeader{
+    display: none;
   }
 }
