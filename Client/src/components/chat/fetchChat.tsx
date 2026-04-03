@@ -1,25 +1,17 @@
 import { useEffect } from "react";
-// import "../../assets/styles/chosenpage.css";
+
 import ShowChat from "./showChat";
-// import type { Message } from "../../types/chat";
-// import { socket } from "../../services/websocket";
+
 import type { FetchChatProps } from "../../props/chatProp";
-import {
-  LIVE_URL, 
-  // LOCAL_URL
-} from "../../url";
+import { LIVE_URL } from "../../url";
 
 export default function FetchChat({
   senderId,
   receiverId,
   fetchedMessages,
   setFetchedMessages,
- 
 }: FetchChatProps) {
-  // const [fetchedMessages, setFetchedMessages] = useState<Message[]>([]);
-
   async function fetchChatById() {
-    
     try {
       const response = await fetch(
         `${LIVE_URL}/api/getConvoById/${senderId.id}/${receiverId.id}`,
@@ -40,7 +32,7 @@ export default function FetchChat({
             message: msg.message,
             userName: msg.users.fname,
             createdAt: msg.created_at,
-            userProfilePic: msg.users.profilePicURL
+            userProfilePic: msg.users.profilePicURL,
           })) || [],
         );
       }

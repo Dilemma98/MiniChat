@@ -1,5 +1,5 @@
 import SendIcon from "@mui/icons-material/Send";
-import { useState, useRef} from "react";
+import { useState, useRef } from "react";
 import "../../assets/styles/chatPage.css";
 import { socket } from "../../services/websocket";
 import type { SendMessageProps } from "../../props/chatProp";
@@ -18,12 +18,14 @@ export default function WriteMessage({
 
   const handleSend = () => {
     if (!message.trim()) return;
+    const currentUser = JSON.parse(userLs || "{}");
 
     socket.emit("send_message", {
       senderId: senderUserId,
       receiverId: receiverUserId,
       message: message,
       userName: JSON.parse(userLs || "{}").name,
+      userProfilePic: currentUser.profilePic ?? null,
       createdAt: new Date().toISOString(),
     });
 
@@ -34,7 +36,8 @@ export default function WriteMessage({
           senderId: senderUserId,
           receiverId: receiverUserId,
           message: message,
-          userName: JSON.parse(userLs || "{}").name,
+          userName: currentUser.name,
+          userProfilePic: currentUser.profilePic ?? null,
           createdAt: new Date().toISOString(),
         },
       ]);
@@ -72,7 +75,11 @@ export default function WriteMessage({
             senderId: senderUserId,
             receiverId: receiverUserId,
           });
-          console.log("Typing event emitted from:", senderUserId, receiverUserId);
+          console.log(
+            "Typing event emitted from:",
+            senderUserId,
+            receiverUserId,
+          );
         }}
         className="textArea"
         data-placeholder="Skriv ett meddelande..."
