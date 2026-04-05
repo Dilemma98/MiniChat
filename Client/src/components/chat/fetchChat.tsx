@@ -1,7 +1,5 @@
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react";
 import ShowChat from "./showChat";
-
 import type { FetchChatProps } from "../../props/chatProp";
 import { LIVE_URL } from "../../url";
 
@@ -11,8 +9,10 @@ export default function FetchChat({
   fetchedMessages,
   setFetchedMessages,
 }: FetchChatProps) {
+  const [loading, setLoading] = useState(false);
   async function fetchChatById() {
     try {
+      setLoading(true);
       const response = await fetch(
         `${LIVE_URL}/api/getConvoById/${senderId.id}/${receiverId.id}`,
         {
@@ -37,6 +37,9 @@ export default function FetchChat({
         );
       }
     } catch {}
+    finally{
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -51,6 +54,8 @@ export default function FetchChat({
       currentUserId={senderId}
       messages={fetchedMessages || []}
       setFetchedMessages={setFetchedMessages}
+      loading={loading}
+      setLoading={setLoading}
       // profilePicUrl={profilePicUrl}
     />
   );

@@ -6,7 +6,8 @@ export type ShowChatProps = {
   currentUserId: any;
   messages: Message[];
   setFetchedMessages?: Dispatch<SetStateAction<Message[]>>;
-
+  loading: boolean;
+  setLoading: Dispatch<SetStateAction<boolean>>;
 };
 export type FetchChatProps = {
   senderId: any;

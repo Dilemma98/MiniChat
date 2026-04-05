@@ -2,8 +2,8 @@
 
 .header {
   padding: 0.75em 1.5em;
-  background: #fff;
-  border-bottom: 0.5px solid #F4C0D1;
+  /* background: #fff; */
+  border-bottom: 0.5px solid #878787;
 }
 
 .header-content {
@@ -42,7 +42,7 @@
   letter-spacing: 0.1em;
   font-weight: 200;
   font-family: 'Vivian', sans-serif;
-  color: #72243E;
+  color: #000000;
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;

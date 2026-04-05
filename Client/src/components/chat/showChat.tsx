@@ -3,12 +3,15 @@ import type { ShowChatProps } from "../../props/chatProp";
 import "../../assets/styles/chatPage.css";
 import { socket } from "../../services/websocket";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import LoadingComponent from "../loadingComponent";
 
 export default function ShowChat({
   messages,
   setFetchedMessages,
   chosenUserId,
   currentUserId,
+  loading,
+  setLoading
 }: ShowChatProps) {
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const chatBoxRef = useRef<HTMLDivElement | null>(null);
@@ -217,6 +220,9 @@ export default function ShowChat({
               );
             })}
         <div ref={bottomRef} />
+         {  loading && (
+          <LoadingComponent />
+        )}
       </div>
     </div>
   );
