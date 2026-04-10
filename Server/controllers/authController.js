@@ -30,14 +30,14 @@ export const loginController = async (req, res) => {
   const { email, password } = req.body;
   try {
     // Fetch data from database
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("users")
       .select("*")
       .eq("email", email)
-      .single();
+      .maybeSingle();
 
     // Check if user exists
-    if (!data) {
+    if (error || !data) {
       return res.status(404).json({ message: "Användaren hittades inte" });
     }
 
