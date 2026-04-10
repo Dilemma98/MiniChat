@@ -11,7 +11,6 @@ export default function ShowChat({
   chosenUserId,
   currentUserId,
   loading,
-  setLoading
 }: ShowChatProps) {
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const chatBoxRef = useRef<HTMLDivElement | null>(null);
