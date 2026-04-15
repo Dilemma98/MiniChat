@@ -25,6 +25,7 @@ export default function SignedIn({ user }: SignedInProp) {
 useEffect(() => {
   socket.on("online_users", (users) => {
     setOnlineUsers(users);
+    console.log("Online", selectedUser)
   });
   return () => {
     socket.off("online_users");

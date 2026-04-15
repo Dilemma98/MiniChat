@@ -8,11 +8,11 @@ import { socket } from "../services/websocket";
 export default function ChatPage({ selectedUser }: ChatPageProps) {
   const currentUser = JSON.parse(localStorage.getItem("user") || "{}");
   const [fetchedMessages, setFetchedMessages] = useState<Message[]>([]);
-  const [isTyping, setIsTyping] = useState(false);
+  const [isTyping, setIsTyping] = useState(true);
 
     useEffect(() => {
     socket.on("typing", ({ senderId }) => {
-
+      console.log("SSENDER", selectedUser)
       if (senderId === selectedUser.id) {
         setTimeout(() => setIsTyping(true), 200);
         setTimeout(() => setIsTyping(false), 2000);
@@ -45,12 +45,15 @@ export default function ChatPage({ selectedUser }: ChatPageProps) {
         )}
       </div>
       {selectedUser && isTyping && (
-      <div className="isTypingBar">
+    <div>
+      <img src={selectedUser.profilePicUrl}/>
+        <div className="isTypingBar">
         <div className="bubbleTyping">
           <span className="dot" />
           <span className="dot" />
           <span className="dot" />
         </div>
+      </div>
       </div>
     )}
       {selectedUser && (

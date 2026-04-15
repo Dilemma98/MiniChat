@@ -132,13 +132,14 @@
 
 .isTypingBar {
   position: absolute;
-  bottom: 11%;
-  left: 30%;
+  bottom: 20%;
+  left: 30% !important;
   padding: 2px 8px;
   min-height: 1.4em;
   font-size: 0.9em;
   font-family: sans-serif;
   color: #B4B2A9;
+
 }
 
 .bubbleTyping {
