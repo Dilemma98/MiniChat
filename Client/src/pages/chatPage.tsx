@@ -8,7 +8,7 @@ import { socket } from "../services/websocket";
 export default function ChatPage({ selectedUser }: ChatPageProps) {
   const currentUser = JSON.parse(localStorage.getItem("user") || "{}");
   const [fetchedMessages, setFetchedMessages] = useState<Message[]>([]);
-  const [isTyping, setIsTyping] = useState(true);
+  const [isTyping, setIsTyping] = useState(false);
 
     useEffect(() => {
     socket.on("typing", ({ senderId }) => {
